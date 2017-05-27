@@ -20,7 +20,7 @@ export default class LocationInput extends Component {
   }
 
   handleLocationSearch () {
-    console.log(this.state.location);
+    this.props.LocationInput(this.state.location);
   }
 
   render () {

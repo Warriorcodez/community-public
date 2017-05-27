@@ -23,12 +23,11 @@ class Homepage extends Component {
           updateForm={this.props.updateForm}
         />
         <div style={style}>
-          <Gmap style={style} center={this.props.googleMap}
+          <Gmap style={style}
+            center={this.props.googleMap}
             markers={[]}
             changeCenter={this.props.changeCenter}
             googleMap={this.props.googleMap}
-            containerElement={ <div className='map-container' style={style}></div>}
-            mapElement={ <div id='map' className='map-section' style={style}></div>}
           />
         </div>
 			</div>
