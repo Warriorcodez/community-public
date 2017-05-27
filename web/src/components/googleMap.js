@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import axios from 'axios';
 import LocationInput from './LocationInput';
+import config from '../../../config/development.json';
 
-const Key = '&key=AIzaSyDFPbV-j4fvg70Ziq2bbTK_k5JSsfyidac';
+const Key = config.GoogleKey;
 const GeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 const RevGeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const style = {
@@ -16,14 +17,7 @@ class Gmap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: [{
-        position: {
-          lat: props.center.lat,
-          lng: props.center.lng,
-        },
-        key: 'San Francisco',
-        defaultAnimation: 2,
-      }],
+      markers: this.props.markers
     };
     this.handleMapLoad = this.handleMapLoad.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
@@ -40,16 +34,14 @@ class Gmap extends Component {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
     const nextMarkers = [
-      ...this.state.markers,
+      ...this.props.markers,
       {
         position: {lat: lat, lng: lng},
         defaultAnimation: 2,
         key: Date.now(),
       },
     ];
-    this.setState({
-      markers: nextMarkers,
-    });
+    this.props.setMarkers(nextMarkers);
     this.props.changeCenter({lat: lat, lng: lng});
     this.handleReverseGeoCode({lat: lat, lng: lng});
   }
@@ -59,10 +51,8 @@ class Gmap extends Component {
   // }
 
   handleMarkerRightClick(targetMarker) {
-    const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
-    this.setState({
-      markers: nextMarkers,
-    });
+    const nextMarkers = this.props.markers.filter(marker => marker !== targetMarker);
+    this.props.setMarkers(nextMarkers);
   }
 
   handleReverseGeoCode(latlng) {
@@ -82,7 +72,7 @@ class Gmap extends Component {
       const lat = res.data.results[0].geometry.location.lat;
       const lng = res.data.results[0].geometry.location.lng;
       const nextMarkers = [
-        ...this.state.markers,
+        ...this.props.markers,
         {
           position: {
             lat: lat,
@@ -92,9 +82,7 @@ class Gmap extends Component {
           key: Date.now(),
         },
       ];
-      this.setState({
-        markers: nextMarkers,
-      });
+      this.props.setMarkers(nextMarkers);
       this.props.changeCenter({lat: lat, lng: lng});
     })
     .catch((err) => {
@@ -127,7 +115,7 @@ class Gmap extends Component {
           mapElement={ <div id='map' className='map-section' style={style}></div>}
           onMapLoad={this.handleMapLoad}
           onMapClick={this.handleMapClick}
-          markers={this.state.markers}
+          markers={this.props.markers}
           onMarkerRightClick={this.handleMarkerRightClick}
           // onMarkerClick={this.handleMarkerClick}
         />

@@ -18,3 +18,10 @@ export const changeCenter = (prop) => {
     payload: prop
   };
 };
+
+export const setMarkers = (prop) => {
+  return {
+    type: 'SET_MARKERS',
+    payload: prop
+  };
+};
