@@ -1,13 +1,13 @@
 {
   "knex": {
     "client": "postgresql",
-    "connection": {
-      "database": "thesis",
-      "user": "community",
-      "password": "admin",
-      "host": "localhost",
-      "port": 5432
-    },
+    // "connection": {
+    //   "database": "thesis",
+    //   "user": "community",
+    //   "password": "admin",
+    //   "host": "localhost",
+    //   "port": 5432
+    // },
     "pool": {
       "min": 1,
       "max": 2
@@ -21,9 +21,9 @@
     }
   },
 
-  "passport": {
-    "Google": {},
-    "Facebook": {},
-    "Twitter": {}
-  }
+  // "passport": {
+  //   "Google": {},
+  //   "Facebook": {},
+  //   "Twitter": {}
+  // }
 }

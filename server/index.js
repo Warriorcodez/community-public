@@ -4,5 +4,5 @@ const db = require('../db');
 const PORT = process.env.port || 3000;
 
 app.listen(PORT, () => {
-  console.log('Community listening on port 3000!');
+  console.log(`Community listening on port ${PORT}!`);
 });
