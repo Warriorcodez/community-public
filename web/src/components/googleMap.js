@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import axios from 'axios';
 import LocationInput from './LocationInput';
-import config from '../../../config/development.json';
 
-const Key = config.GoogleKey;
+const Key = process.env.GOOGLE_API_KEY;
 const GeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 const RevGeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const style = {
