@@ -1,4 +1,25 @@
+// {
+//   "name": "CommunityMobile",
+//   "displayName": "CommunityMobile"
+// }
+
 {
-  "name": "CommunityMobile",
-  "displayName": "CommunityMobile"
+  "name": "Community",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+
+  "addons": [
+    "heroku-redis",
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ],
+
+  "description": "Connect with others around you with Community!"
 }
