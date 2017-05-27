@@ -6,7 +6,7 @@ import googleMapReducer from './googleMapReducer';
 const allReducers = combineReducers({
   header: headerReducer,
   createEventForm: createEventFormReducer,
-  googleMap: googleMapReducer
+  googleMap: googleMapReducer,
 });
 
 export default allReducers;
