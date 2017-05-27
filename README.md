@@ -8,7 +8,7 @@ What if I told you there's an app that scans your surrounding and lets you know 
 
 - Ramsha A. Mushtaq
 - Mel Hsieh
-- Khoa Dang Vo
+- Khoa Vo
 - Yvonne Zhang
 
 ## Roadmap
@@ -64,7 +64,7 @@ IMPORTANT: ensure `postgres` is running before performing these steps.
 
 Use grunt to create a new database for your development and test environments:
 
-Development envronment: `grunt pgcreatedb:default`
+Development environment: `grunt pgcreatedb:default` (CURRENTLY NOT WORKING)
 
 Other environments, specify like so: `NODE_ENV=test grunt pgcreatedb:default`
 
@@ -89,3 +89,8 @@ To run server: `yarn run start`
 To run tests: `yarn run test`
 
 To run your redis server for the session store `redis-server`
+
+## Deployment
+- Provision heroku-postgres and heroku-redis add-ons for your app.
+- Set all config variables and keys in Heroku app settings
+
