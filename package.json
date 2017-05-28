@@ -7,7 +7,7 @@
   "scripts": {
     "postinstall-dev": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
     "start-web": "nodemon index.js",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "node index.js",
     "test": "jest",
     "test-web": "NODE_ENV=test grunt test",
     "build": "webpack --watch",
