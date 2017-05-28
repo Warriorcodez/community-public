@@ -5,7 +5,7 @@
     "node": "7.8.0"
   },
   "scripts": {
-    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
+    "postinstall-dev": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
     "start-web": "nodemon index.js",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
