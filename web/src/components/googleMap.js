@@ -26,6 +26,7 @@ class Gmap extends Component {
   }
 
   componentDidMount() {
+    // console.log('hi from componentdidMount');
     const nextMarkers = [
       ...this.props.markers,
     ];
@@ -45,6 +46,7 @@ class Gmap extends Component {
       console.log(err);
     });
   }
+
 
   // convertToLatLng(addressStr) {
   //   let string = addressStr.split(' ').join('+');
@@ -72,6 +74,7 @@ class Gmap extends Component {
     this.props.setMarkers(nextMarkers);
     this.props.changeCenter({lat: lat, lng: lng});
     this.handleReverseGeoCode({lat: lat, lng: lng});
+    console.log(this.props.markers);
   }
 
   handleMarkerClick(targetMarker) {
@@ -98,6 +101,7 @@ class Gmap extends Component {
   }
 
   render () {
+    // console.log('withGmap', this.props.markers);
     const Map = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}

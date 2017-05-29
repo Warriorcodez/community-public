@@ -21,6 +21,7 @@ router.route('/')
 // create event in the events table
 router.route('/createEvent')
   .post((req, res) => {
+    let result = {};
     let string = req.body.location.split(' ').join('+');
     return new Promise((resolve, reject) => {
       resolve(axios.get(GeoCodeURL + string + '&key=' + KEY));
@@ -28,6 +29,7 @@ router.route('/createEvent')
     .then((data) => {
       const lat = data.data.results[0].geometry.location.lat;
       const lng = data.data.results[0].geometry.location.lng;
+      result = {lat: lat, lng: lng};
 
       let eventInfo = {
         event_name: req.body.eventName,
@@ -42,7 +44,8 @@ router.route('/createEvent')
       return models.Event.forge(eventInfo).save();
     })
     .then(() => {
-      res.status(201).send('saved!!!!! ');
+      result.status = 'saved!!!';
+      res.status(201).send(result);
     })
     .catch((err) => {
       res.status(400).send('error: ' + err.toString());
