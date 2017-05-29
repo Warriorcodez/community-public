@@ -51,23 +51,18 @@ class CreateEventForm extends Component {
       resolve(this.setState({ dateTime: dateTime }));
     })
     .then(() => {
+      return axios.post('/api/createEvent', this.state);
+    })
+    .then((data) => {
+      let newMarker = {
+        position: {lat: Number(data.data.lat), lng: Number(data.data.lng)},
+        defaultAnimation: 3,
+        key: Math.random(),
+      };
+      this.props.markers.push(newMarker);
       this.props.updateForm(this.state);
-      return axios.get('/api/retrieveMarkers')
-      .then((res) => {
-        const nextMarkers = [];
-        for (let i = 0; i < res.data.length; i++) {
-          let newMarker = {
-            position: {lat: Number(res.data[i].lat), lng: Number(res.data[i].lng)},
-            defaultAnimation: 3,
-            key: Math.random(),
-          };
-          nextMarkers.push(newMarker);
-        }
-        this.props.setMarkers(nextMarkers);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      this.props.setMarkers(this.props.markers);
+      console.log(data.data.status);
     })
     .catch(err => { console.log('error in submitting event', err); });
   }

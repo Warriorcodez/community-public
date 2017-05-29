@@ -23,6 +23,7 @@ class Homepage extends Component {
           createEventForm={this.props.createEventForm}
           updateForm={this.props.updateForm}
           setMarkers={this.props.setMarkers}
+          markers={this.props.googleMap.markers}
         />
         <div style={style}>
           <Gmap style={style}
