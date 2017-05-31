@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import axios from 'axios';
 import LocationInput from './LocationInput';
-import config from '../../../config/development.json';
+// import config from '../../../config/development.json';
 
 //const KEY = config.GoogleKey;
 const KEY = process.env.GOOGLE_API_KEY;
