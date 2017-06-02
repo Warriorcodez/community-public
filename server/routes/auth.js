@@ -8,6 +8,26 @@ router.route('/')
     res.render('index.ejs');
   });
 
+router.route('/mobileFBLogin')
+  .post((req, res) => {
+    const userData = {
+      name: {
+        givenName: req.body.name.split(' ')[0],
+        familyName: req.body.name.split(' ')[1]
+      },
+      displayName: req.body.name,
+      emails: [{value: req.body.email}],
+      id: req.body.id
+    };
+
+    const cb = (err, data) => {
+      console.log('err:', err);
+      console.log('data:', data);
+      res.send(data);
+    };
+    middleware.passport.getOrCreateOAuthProfile('facebook', userData, cb);
+  });
+
 router.route('/login')
   .get((req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });

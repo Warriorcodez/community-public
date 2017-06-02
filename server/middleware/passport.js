@@ -218,4 +218,5 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     });
 };
 
+passport.getOrCreateOAuthProfile = getOrCreateOAuthProfile;
 module.exports = passport;
