@@ -37,7 +37,7 @@ router.route('/createEvent')
         location: req.body.location,
         category: req.body.category,
         description: req.body.description,
-        profile_id: req.session.passport.user,
+        profile_id: req.body.userId || req.session.passport.user,
         lat: lat,
         lng: lng
       };
