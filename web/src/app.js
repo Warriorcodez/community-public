@@ -1,13 +1,13 @@
+import allReducers from './reducers/index';
+import { createStore } from 'redux';
+import { deepOrange500 } from 'material-ui/styles/colors';
+import { getMuiTheme, MuiThemeProvider } from 'material-ui/styles';
+import Homepage from './containers/Homepage';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Homepage from './containers/Homepage';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import allReducers from './reducers/index';
 //test
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
-import { deepOrange500 } from 'material-ui/styles/colors';
 
 const store = createStore(allReducers);
 
