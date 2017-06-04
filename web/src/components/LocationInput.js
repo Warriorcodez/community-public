@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { RaisedButton, TextField, Card, AutoComplete } from 'material-ui';
-import Promise from 'bluebird';
+import { AutoComplete, Card, RaisedButton, TextField } from 'material-ui';
 import axios from 'axios';
+import Promise from 'bluebird';
+import React, { Component } from 'react';
 
 const GeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 

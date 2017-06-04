@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import Promise from 'bluebird';
-import { Card, GridList, GridTile, Subheader, IconButton, Dialog, FlatButton } from 'material-ui';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import axios from 'axios';
+import { Card, Dialog, FlatButton, GridList, GridTile, IconButton, Subheader } from 'material-ui';
 import GridTileComponent from './GridTile.js';
+import Promise from 'bluebird';
+import React, { Component } from 'react';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 class FindEvents extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class FindEvents extends Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  
+
   // // TODO: filter incoming data by user location
   // retrieveEvents(location) {
   //   axios.get('/api/retrieveEvents')

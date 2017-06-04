@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import axios from 'axios';
+import { addEvents, addGeolocation, changeCenter, changeHeader, setMarkers, updateForm } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { GridList, Tabs, Tab } from 'material-ui';
-import axios from 'axios';
-import { changeHeader, updateForm, changeCenter, setMarkers, addGeolocation, addEvents } from '../actions';
-import Header from '../components/Header';
 import CreateEventForm from '../components/CreateEventForm';
 import FindEvents from '../components/FindEvents';
 import Gmap from '../components/GoogleMap';
+import { GridList, Tabs, Tab } from 'material-ui';
+import Header from '../components/Header';
+import React, { Component } from 'react';
 
 const style = {
   position: 'absolute',

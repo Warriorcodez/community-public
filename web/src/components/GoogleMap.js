@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, Marker, Circle } from 'react-google-maps';
-import canUseDOM from 'can-use-dom';
-import Promise from 'bluebird';
 import axios from 'axios';
+import canUseDOM from 'can-use-dom';
 import LocationInput from './LocationInput';
+import Promise from 'bluebird';
+import React, { Component } from 'react';
+import { Circle, GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
 
 const style = {
   position: 'absolute',

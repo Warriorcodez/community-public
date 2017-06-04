@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux';
-import headerReducer from './headerReducer';
+import { combineReducers } from 'redux';
 import createEventFormReducer from './createEventFormReducer';
-import googleMapReducer from './googleMapReducer';
 import eventsReducer from './eventsReducer';
+import googleMapReducer from './googleMapReducer';
+import headerReducer from './headerReducer';
 
 const allReducers = combineReducers({
   header: headerReducer,
