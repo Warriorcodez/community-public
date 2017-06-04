@@ -70,7 +70,6 @@ class FindEvents extends Component {
               indexID={i}
               title={tile.event_name}
               titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-              // subtitle={<span>by <b>{tile.host_name}</b></span>}
               style={styles.tile}
               actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               imageSRC={tile.image}
@@ -120,4 +119,3 @@ const styles = {
 };
 
 export default FindEvents;
-//

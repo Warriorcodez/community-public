@@ -28,7 +28,7 @@ class Homepage extends Component {
   render() {
     return (
       <div>
-        <Header changeHeader={this.props.changeHeader} header={this.props.header}/>
+        <Header header={this.props.header} />
         <GridList cellHeight="auto">
           <Tabs>
             <Tab label="Find Events">
@@ -37,7 +37,7 @@ class Homepage extends Component {
                 googleMap={this.props.googleMap}
               />
             </Tab>
-            <Tab label="Create Event" >
+            <Tab label="Create Event">
               <CreateEventForm
                 className="createEventForm"
                 createEventForm={this.props.createEventForm}
@@ -68,6 +68,17 @@ class Homepage extends Component {
   }
 }
 
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    addEvents: addEvents,
+    addGeolocation: addGeolocation,
+    changeCenter: changeCenter,
+    changeHeader: changeHeader,
+    setMarkers: setMarkers,
+    updateForm: updateForm
+  }, dispatch);
+};
+
 const mapStateToProps = (state) => {
   return {
     header: state.header,
@@ -75,17 +86,6 @@ const mapStateToProps = (state) => {
     googleMap: state.googleMap,
     events: state.events.allEvents
   };
-};
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    changeHeader: changeHeader,
-    updateForm: updateForm,
-    changeCenter: changeCenter,
-    setMarkers: setMarkers,
-    addGeolocation: addGeolocation,
-    addEvents: addEvents,
-  }, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(Homepage);

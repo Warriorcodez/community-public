@@ -6,18 +6,10 @@ class Header extends Component {
     super(props);
   }
 
-  handleClick () {
-    this.props.changeHeader('Yvonne is smart');
-  }
-
   render () {
     return (
       <div>
         <AppBar title="Community" />
-        {/* <div>{this.props.header}</div>
-        <button onClick={this.handleClick.bind(this)}>
-          Click
-        </button> */}
       </div>
     );
   }
