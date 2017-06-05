@@ -75,64 +75,109 @@ class CreateEventForm extends Component {
 
   render() {
     return (
-      <Card className="createEventForm" style={styles.container}>
-        <TextField
-          style={styles.textField}
-          name="eventName"
-          floatingLabelText="Event Name"
-          autoFocus
-          value={this.state.eventName}
-          onChange={this.handleChange}/>
-        <br />
-        <DatePicker
-          name="date"
-          autoOk={true}
-          onChange={this.handleDatePicker}
-          floatingLabelText="Date"/>
-        <TimePicker
-          name="time"
-          autoOk={true}
-          defaultTime={null}
-          onChange={this.handleTimePicker}
-          floatingLabelText="Time"/>
-        <br />
-        <TextField
-          name="location"
-          floatingLabelText="Location"
-          value={this.state.location}
-          onChange={this.handleChange}/>
-        <br />
-        <TextField
-          name="description"
-          floatingLabelText="Description"
-          value={this.state.description}
-          onChange={this.handleChange}/>
-        <br />
-        <SelectField floatingLabelText={this.state.category} >
-          <MenuItem value="food" primaryText="Food" onTouchTap={this.handleSelect} />
-          <MenuItem value="sports" primaryText="Sports" onTouchTap={this.handleSelect} />
-          <MenuItem value="outdoors" primaryText="Outdoors" onTouchTap={this.handleSelect} />
-          <MenuItem value="nightlife" primaryText="Nightlife" onTouchTap={this.handleSelect} />
-          <MenuItem value="games" primaryText="Games" onTouchTap={this.handleSelect} />
-          <MenuItem value="other" primaryText="Other" onTouchTap={this.handleSelect} />
-        </SelectField>
-        <br />
-        <RaisedButton label="Create Event" secondary={true} onTouchTap={this.handleSubmit} />
+      <Card
+        style={styles.container}
+        containerStyle={styles.container}
+      >
+        <div>
+          <TextField
+            autoFocus
+            floatingLabelText="Event Name"
+            inputStyle={styles.text}
+            name="eventName"
+            onChange={this.handleChange}
+            style={styles.textField}
+            value={this.state.eventName}
+          />
+        </div>
+        <div>
+          <DatePicker
+            autoOk={true}
+            floatingLabelText="Date"
+            inputStyle={styles.text}
+            name="date"
+            onChange={this.handleDatePicker}
+          />
+        </div>
+        <div>
+          <TimePicker
+            autoOk={true}
+            defaultTime={null}
+            floatingLabelText="Time"
+            inputStyle={styles.text}
+            name="time"
+            onChange={this.handleTimePicker}
+          />
+        </div>
+        <div>
+          <TextField
+            floatingLabelText="Location"
+            inputStyle={styles.text}
+            name="location"
+            onChange={this.handleChange}
+            value={this.state.location}
+          />
+        </div>
+        <div>
+          <TextField
+            floatingLabelText="Description"
+            name="description"
+            inputStyle={styles.text}
+            onChange={this.handleChange}
+            value={this.state.description}
+          />
+        </div>
+        <div>
+          <SelectField floatingLabelText={this.state.category}>
+            <MenuItem value="food" primaryText="Food" onTouchTap={this.handleSelect} />
+            <MenuItem value="sports" primaryText="Sports" onTouchTap={this.handleSelect} />
+            <MenuItem value="outdoors" primaryText="Outdoors" onTouchTap={this.handleSelect} />
+            <MenuItem value="nightlife" primaryText="Nightlife" onTouchTap={this.handleSelect} />
+            <MenuItem value="games" primaryText="Games" onTouchTap={this.handleSelect} />
+            <MenuItem value="other" primaryText="Other" onTouchTap={this.handleSelect} />
+          </SelectField>
+        </div>
+        <div>
+          <RaisedButton
+            label="Create Event"
+            labelStyle={styles.buttonLabel}
+            labelColor={'#5E35B1'}
+            onTouchTap={this.handleSubmit}
+            style={styles.button}
+          />
+        </div>
       </Card>
     );
   }
 }
 
 const styles = {
+  button: {
+    border: '1px solid #5E35B1',
+    borderRadius: '10px',
+    backgroundColor: 'white',
+    marginTop: '20px'
+  },
+  buttonLabel: {
+    fontFamily: 'Vibur',
+    fontSize: '18px',
+    color: '#5E35B1',
+    textTransform: 'capitalize',
+  },
   container: {
     paddingTop: 0,
     paddingLeft: 30,
     paddingBottom: 30,
+    height: '100%'
   },
   textField: {
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center'
+  },
+  text: {
+    fontFamily: 'Vibur',
+    fontSize: '18px',
   }
 };
 

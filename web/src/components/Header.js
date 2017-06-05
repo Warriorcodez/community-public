@@ -9,10 +9,24 @@ class Header extends Component {
   render () {
     return (
       <div>
-        <AppBar title="Community" />
+        <AppBar
+          title="Community"
+          style={styles.theme}
+          titleStyle={styles.title}
+        />
       </div>
     );
   }
 }
+
+const styles = {
+  title: {
+    fontFamily: 'Vibur',
+    fontSize: '34px'
+  },
+  theme: {
+    backgroundColor: '#5E35B1',
+  }
+};
 
 export default Header;

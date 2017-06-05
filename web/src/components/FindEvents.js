@@ -59,17 +59,20 @@ class FindEvents extends Component {
        label="Cancel"
        primary={true}
        onTouchTap={this.handleClose}
-      />,
+      />
     ];
     return (
-      <Card style={styles.container}>
+      <Card
+        style={styles.container}
+        containerStyle={styles.container}
+      >
         <GridList cellHeight={180} cols={2} style={styles.gridList}>
           {this.props.events.map((tile, i) => (
             <GridTileComponent
               key={i}
               indexID={i}
               title={tile.event_name}
-              titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+              titleBackground="white"
               style={styles.tile}
               actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               imageSRC={tile.image}
@@ -80,22 +83,30 @@ class FindEvents extends Component {
             </GridTileComponent>
           ))}
           <Dialog
-           title="Event Details"
-           actions={actions}
-           modal={false}
-           open={this.state.open}
-           onRequestClose={this.handleClose}
-           >
-             Event Name: {this.state.eventInfo.event_name}
-             <br />
-             Time: {this.state.eventInfo.time}
-             <br />
-             Location: {this.state.eventInfo.location}
-             <br />
-             Description: {this.state.eventInfo.description}
-             <br />
-             Category: {this.state.eventInfo.category}
-           </Dialog>
+            title="Event Details"
+            actions={actions}
+            modal={false}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+          >
+            <div style={styles.theme}>
+              <div>
+                Event Name: {this.state.eventInfo.event_name}
+              </div>
+              <div>
+                Time: {this.state.eventInfo.time}
+              </div>
+              <div>
+                Location: {this.state.eventInfo.location}
+              </div>
+              <div>
+                Description: {this.state.eventInfo.description}
+              </div>
+              <div>
+                Category: {this.state.eventInfo.category}
+              </div>
+            </div>
+          </Dialog>
         </GridList>
       </Card>
     );
@@ -107,14 +118,19 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    height: '100%'
+  },
+  theme: {
+    fontFamily: 'Vibur',
+    fontSize: '20px'
   },
   gridList: {
     height: 490,
     padding: 15,
-    overflowY: 'auto',
+    overflowY: 'auto'
   },
   tile: {
-    margin: 10
+    margin: 10,
   }
 };
 

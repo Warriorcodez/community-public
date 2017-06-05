@@ -17,10 +17,16 @@ const muiTheme = getMuiTheme({
   },
 });
 
+const styles = {
+  theme: {
+    fontFamily: 'Vibur'
+  }
+};
+
 injectTapEventPlugin();
 ReactDOM.render(
-	<Provider store={store}>
-    <MuiThemeProvider muiTheme={muiTheme}>
+	<Provider store={store} >
+    <MuiThemeProvider muiTheme={muiTheme} fontFamily={'Vibur'}>
       <Homepage />
     </MuiThemeProvider>
 	</Provider>, document.getElementById('root'));

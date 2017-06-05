@@ -9,15 +9,7 @@ import { GridList, Tabs, Tab } from 'material-ui';
 import Header from '../components/Header';
 import React, { Component } from 'react';
 
-const style = {
-  position: 'absolute',
-  display: 'inline',
-  height: '520px',
-  width: '610px',
-};
-
 class Homepage extends Component {
-
   componentWillMount() {
     axios.get('/api/retrieveEvents')
     .then((data) => {
@@ -29,15 +21,24 @@ class Homepage extends Component {
     return (
       <div>
         <Header header={this.props.header} />
-        <GridList cellHeight="auto">
-          <Tabs>
-            <Tab label="Find Events">
+        <GridList>
+          <Tabs
+            contentContainerStyle={styles.container}
+            tabTemplateStyle={styles.gridContainer}
+          >
+            <Tab
+              label="Find Events"
+              style={styles.theme}
+            >
               <FindEvents
                 events={this.props.events}
                 googleMap={this.props.googleMap}
               />
             </Tab>
-            <Tab label="Create Event">
+            <Tab
+              label="Create Event"
+              style={styles.theme}
+            >
               <CreateEventForm
                 className="createEventForm"
                 createEventForm={this.props.createEventForm}
@@ -50,16 +51,17 @@ class Homepage extends Component {
               />
             </Tab>
           </Tabs>
-          <div style={style}>
+          <div style={styles.style}>
             <Gmap
-              events={this.props.events}
-              center={this.props.googleMap.center}
-              markers={this.props.googleMap.markers}
-              changeCenter={this.props.changeCenter}
-              googleMap={this.props.googleMap.center}
-              setMarkers={this.props.setMarkers}
               addGeolocation={this.props.addGeolocation}
+              center={this.props.googleMap.center}
+              changeCenter={this.props.changeCenter}
+              events={this.props.events}
               geolocation={this.props.googleMap.geolocation}
+              googleMap={this.props.googleMap.center}
+              markers={this.props.googleMap.markers}
+              setMarkers={this.props.setMarkers}
+              style={styles.location}
             />
           </div>
         </GridList>
@@ -67,6 +69,28 @@ class Homepage extends Component {
     );
   }
 }
+
+const styles = {
+  container: { // outside div
+    position: 'absolute',
+    height: 'calc(100% - 112px)',
+    width: '50%',
+  },
+  gridContainer: { // inside div
+    height: '100%',
+  },
+  theme: {
+    borderColor: '#5E35B1',
+    backgroundColor: '#D1C4E9',
+    fontFamily: 'Vibur',
+    borderRightStyle: 'dotted',
+    border: '1',
+    borderWidth: '1px',
+  },
+  location: {
+    fontFamily: 'Vibur'
+  }
+};
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({

@@ -80,16 +80,47 @@ export default class LocationInput extends Component {
     });
     const filter = () => true;
     return (
-      <Card className="searchLocation">
-        <label> Location: </label>
+      <Card >
         <AutoComplete dataSource={dataSource}
-          name="address"
-          value={this.state.location}
           autoFocus
           filter={filter}
-          onUpdateInput={this.handleChange}/>
-        <RaisedButton label="search" onTouchTap={this.handleLocationSearch}/>
+          name="address"
+          onUpdateInput={this.handleChange}
+          placeholder={'Search Location'}
+          textFieldStyle={styles.location}
+          underlineStyle={styles.underline}
+          value={this.state.location}
+        />
+        <RaisedButton
+          label="Search"
+          onTouchTap={this.handleLocationSearch}
+          labelStyle={styles.buttonLabel}
+          labelColor={'#5E35B1'}
+          style={styles.button}
+        />
       </Card>
     );
   }
 }
+
+const styles = {
+  button: {
+    border: '1px solid #5E35B1',
+    borderRadius: '10px',
+    marginLeft: '18px'
+  },
+  buttonLabel: {
+    fontFamily: 'Vibur',
+    fontSize: '18px',
+    textTransform: 'capitalize',
+  },
+  location: {
+    borderColor: '#5E35B1',
+    fontFamily: 'Vibur',
+    fontSize: '20px',
+    marginLeft: '8px',
+    marginRight: '8px',
+  },
+  underline: {
+  }
+};

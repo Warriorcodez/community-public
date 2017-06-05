@@ -22,7 +22,6 @@ class GridTileComponent extends Component {
       <GridTile
         title={this.props.title}
         titleBackground={this.props.titleBackground}
-        // subtitle={<span>by <b>{tile.host_name}</b></span>}
         style={this.props.style}
         actionIcon={this.props.actionIcon}
         onClick={this.handleClick}
