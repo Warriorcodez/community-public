@@ -13,9 +13,7 @@ class GridTileComponent extends Component {
 
   handleClick(e) {
     this.props.onClick(this.props.indexID);
-    //axios request
   }
-
 
   render() {
     return (

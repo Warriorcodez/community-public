@@ -1,10 +1,10 @@
 import axios from 'axios';
 import canUseDOM from 'can-use-dom';
 import { Circle, GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
-import Face from 'material-ui-icons/Face';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import LocationInput from './LocationInput';
+import LocationSearching from 'material-ui-icons/LocationSearching';
 import Promise from 'bluebird';
 import React, { Component } from 'react';
 
@@ -83,12 +83,10 @@ class Gmap extends Component {
   }
 
   recenter() {
-    this.props.changeCenter(this.state.center);
+    this.props.changeCenter(this.props.center);
   }
 
   render () {
-    console.log('markers === ', this.props.markers);
-
     const Map = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
@@ -120,19 +118,12 @@ class Gmap extends Component {
 
     return (
       <div style={styles.container}>
-        <IconButton>
-          <Face
-            onTouchTap={this.recenter}
-            touch={true}
-            color={'purple'}
-          />
-        </IconButton>
         <LocationInput
           markers={this.props.markers}
           setMarkers={this.props.setMarkers}
           changeCenter={this.props.changeCenter}
           handleReverseGeoCode={this.handleReverseGeoCode}
-        />
+          />
         <Map style={styles.container}
           containerElement={ <div className='map-container' style={styles.container}></div>}
           mapElement={ <div id='map' className='map-section' style={styles.mapSize}></div>}
@@ -142,6 +133,13 @@ class Gmap extends Component {
           onMarkerClick={this.handleMarkerClick}
           geolocation={this.props.geolocation}
         />
+        <IconButton style={styles.recenter}>
+          <LocationSearching
+            onTouchTap={this.recenter}
+            touch={true}
+            color={'purple'}
+          />
+        </IconButton>
       </div>
     );
   }
@@ -156,6 +154,11 @@ const styles = {
     position: 'absolute',
     height: 'calc(100% - 112px)',
     width: '50%',
+  },
+  recenter: {
+    position: 'absolute',
+    top: '112px',
+    right: '0px'
   }
 };
 
