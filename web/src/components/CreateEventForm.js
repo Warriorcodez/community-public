@@ -92,6 +92,7 @@ class CreateEventForm extends Component {
         </div>
         <div>
           <DatePicker
+            minDate={new Date()}
             autoOk={true}
             floatingLabelText="Date"
             inputStyle={styles.text}
