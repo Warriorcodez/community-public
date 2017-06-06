@@ -73,6 +73,7 @@ class Homepage extends Component {
         <EventDetails
           toggleEventDetails={this.props.toggleEventDetails}
           eventDetails={this.props.eventDetails}
+          disableButton={this.props.disableButton}
           events={this.props.events}/>
       </div>
     );

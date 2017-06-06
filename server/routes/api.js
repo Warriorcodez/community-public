@@ -27,6 +27,12 @@ router.route('/createEvent')
       resolve(axios.get(GeoCodeURL + string + '&key=' + KEY));
     })
     .then((data) => {
+      if (data.data.results.length === 0) {
+        let e = new Error();
+        e.name = 'locationError';
+        e.message = 'location cannot be found';
+        throw e;
+      }
       const lat = data.data.results[0].geometry.location.lat;
       const lng = data.data.results[0].geometry.location.lng;
       result = {lat: lat, lng: lng};
@@ -42,14 +48,15 @@ router.route('/createEvent')
         lat: lat,
         lng: lng
       };
-      return models.Event.forge(eventInfo).save();
+      return models.Event.forge(eventInfo).save()
+      .catch(err => { throw err; });
     })
     .then(() => {
       result.status = 'saved!!!';
       res.status(201).send(result);
     })
     .catch((err) => {
-      res.status(400).send('error: ' + err.toString());
+      res.status(400).send(err);
     });
   });
 
@@ -62,7 +69,7 @@ router.route('/reverseGeoCode')
       res.json(data.data.results[0].formatted_address);
     })
     .catch((err) => {
-      res.send('error ' + err);
+      res.send(err);
     });
   });
 

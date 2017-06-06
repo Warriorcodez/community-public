@@ -6,10 +6,6 @@ import moment from 'moment';
 class EventDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      likeDisabled: false,
-      attendDisabled: false
-    };
     this.handleLike = this.handleLike.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleAttend = this.handleAttend.bind(this);
@@ -23,7 +19,10 @@ class EventDetails extends Component {
     this.setState({ attendDisabled: true });
     let currentEvent = this.props.events[this.props.eventDetails.currentEventIndex];
     axios.post('/api/attendEvent', { eventId: currentEvent.id })
-    .then(res => { console.log(res.data); })
+    .then(res => {
+      console.log(res.data);
+      this.props.disableButton({ attendDisabled: true });
+    })
     .catch(err => { console.log(err); });
   }
 
@@ -31,7 +30,10 @@ class EventDetails extends Component {
     this.setState({ likeDisabled: true });
     let currentEvent = this.props.events[this.props.eventDetails.currentEventIndex];
     axios.post('/api/likeEvent', { eventId: currentEvent.id })
-    .then(res => { console.log(res.data); })
+    .then(res => {
+      console.log(res.data);
+      this.props.disableButton({ likeDisabled: true });
+    })
     .catch(err => { console.log(err); });
   }
 
@@ -42,12 +44,12 @@ class EventDetails extends Component {
       <FlatButton
         label="Like"
         onTouchTap={this.handleLike}
-        disabled={this.state.likeDisabled || this.props.eventDetails.likeDisabled}
+        disabled={this.props.eventDetails.likeDisabled}
       />,
       <FlatButton
         label="Attend"
         onTouchTap={this.handleAttend}
-        disabled={this.state.attendDisabled || this.props.eventDetails.attendDisabled}
+        disabled={this.props.eventDetails.attendDisabled}
       />,
       <FlatButton
         label="Cancel"
