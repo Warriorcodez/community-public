@@ -40,3 +40,6 @@ bower_components/
 # OSX
 #
 .DS_Store
+
+# yarn
+yarn.lock
