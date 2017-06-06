@@ -1,9 +1,12 @@
 import axios from 'axios';
 import canUseDOM from 'can-use-dom';
+import { Circle, GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
+import Face from 'material-ui-icons/Face';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 import LocationInput from './LocationInput';
 import Promise from 'bluebird';
 import React, { Component } from 'react';
-import { Circle, GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
 
 const geolocation = (
   canUseDOM && navigator.geolocation ?
@@ -27,10 +30,9 @@ class Gmap extends Component {
       }
     };
     this.handleMapLoad = this.handleMapLoad.bind(this);
-    // this.handleMapClick = this.handleMapClick.bind(this);
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
-    // this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleReverseGeoCode = this.handleReverseGeoCode.bind(this);
+    this.recenter = this.recenter.bind(this);
   }
 
   componentDidMount() {
@@ -61,23 +63,6 @@ class Gmap extends Component {
     this._mapComponent = map;
   }
 
-  // handleMapClick(event) {
-  //   const lat = event.latLng.lat();
-  //   const lng = event.latLng.lng();
-  //   const nextMarkers = [
-  //     ...this.props.markers,
-  //     {
-  //       position: {lat: lat, lng: lng},
-  //       defaultAnimation: 3,
-  //     },
-  //   ];
-  //   this.props.setMarkers(nextMarkers);
-  //   // this.props._mapComponent(lat, lng);
-  //   this.props.changeCenter({lat: lat, lng: lng});
-  //   this.handleReverseGeoCode({lat: lat, lng: lng});
-  //   console.log(this.props.markers);
-  // }
-
   handleMarkerClick(targetMarker, index) {
     this.props.setCurrentEvent(index);
     this.props.toggleEventDetails();
@@ -86,11 +71,6 @@ class Gmap extends Component {
       lng: Number(targetMarker.lng)
     });
   }
-
-  // handleMarkerRightClick(targetMarker) {
-  //   const nextMarkers = this.props.markers.filter(marker => marker !== targetMarker);
-  //   this.props.setMarkers(nextMarkers);
-  // }
 
   handleReverseGeoCode(latlng) {
     axios.post('/api/reverseGeoCode', {lat: latlng.lat, lng: latlng.lng})
@@ -102,23 +82,25 @@ class Gmap extends Component {
     });
   }
 
+  recenter() {
+    this.props.changeCenter(this.state.center);
+  }
+
   render () {
+    console.log('markers === ', this.props.markers);
 
     const Map = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
         zoom={14}
         center={this.props.center}
-        // onClick={props.onMapClick}
         >
         {this.props.events.map((marker, index) => (
           <Marker
-          // {...marker}
           defaultAnimation={3}
           event_name={marker.event_name}
           position={{lat: Number(marker.lat), lng: Number(marker.lng)}}
           onClick={() => props.onMarkerClick(marker, index)}
-          // onRightClick={() => props.onMarkerRightClick(marker)}
           icon={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}
           key={'marker_' + index}
           >
@@ -126,7 +108,6 @@ class Gmap extends Component {
         ))}
         {props.geolocation.map((marker, index) => (
           <Marker
-            // {...marker}
             defaultAnimation={3}
             position={{lat: this.state.center.lat, lng: this.state.center.lng}}
             key={'geo_' + index}
@@ -139,18 +120,23 @@ class Gmap extends Component {
 
     return (
       <div style={styles.container}>
+        <IconButton>
+          <Face
+            onTouchTap={this.recenter}
+            touch={true}
+            color={'purple'}
+          />
+        </IconButton>
         <LocationInput
           markers={this.props.markers}
           setMarkers={this.props.setMarkers}
           changeCenter={this.props.changeCenter}
           handleReverseGeoCode={this.handleReverseGeoCode}
-
-          />
+        />
         <Map style={styles.container}
           containerElement={ <div className='map-container' style={styles.container}></div>}
           mapElement={ <div id='map' className='map-section' style={styles.mapSize}></div>}
           onMapLoad={this.handleMapLoad}
-          // onMapClick={this.handleMapClick}
           markers={this.props.markers}
           onMarkerRightClick={this.handleMarkerRightClick}
           onMarkerClick={this.handleMarkerClick}

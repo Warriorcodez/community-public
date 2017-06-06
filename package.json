@@ -42,6 +42,7 @@
     "knex": "^0.13.0",
     "material-ui": "^0.18.1",
     "moment": "^2.18.1",
+    "material-ui-icons": "^1.0.0-alpha.3",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
