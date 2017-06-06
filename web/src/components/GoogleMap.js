@@ -27,6 +27,10 @@ class Gmap extends Component {
       center: {
         lat: 40.758895,
         lng: -73.985131,
+      },
+      userLocation: {
+        lat: '',
+        lng: ''
       }
     };
     this.handleMapLoad = this.handleMapLoad.bind(this);
@@ -42,13 +46,20 @@ class Gmap extends Component {
         resolve(this.setState({
           center: {
             lat: position.coords.latitude,
+            lng: position.coords.longitude
+          },
+          userLocation: {
+            lat: position.coords.latitude,
             lng: position.coords.longitude,
-          }
+          },
         }));
       })
       .then(() => {
         context.props.addGeolocation([{
-          position: {lat: this.state.center.lat, lng: this.state.center.lng},
+          position: {
+            lat: this.state.center.lat,
+            lng: this.state.center.lng,
+          },
           defaultAnimation: 3,
         }]);
         context.props.changeCenter(this.state.center);
@@ -83,7 +94,7 @@ class Gmap extends Component {
   }
 
   recenter() {
-    this.props.changeCenter(this.props.center);
+    this.props.changeCenter(this.state.userLocation);
   }
 
   render () {
