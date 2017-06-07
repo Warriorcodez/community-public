@@ -44,7 +44,7 @@ router.route('/createEvent')
         category: req.body.category,
         description: req.body.description,
         profile_id: req.body.userId || req.session.passport.user,
-        image: 'https://influitive.blob.core.windows.net/media/2015/06/creating_an_online_community_b2b_expert_tips.png',
+        image: req.body.imageUrl || 'https://influitive.blob.core.windows.net/media/2015/06/creating_an_online_community_b2b_expert_tips.png',
         lat: lat,
         lng: lng
       };

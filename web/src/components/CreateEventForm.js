@@ -4,30 +4,54 @@ import Promise from 'bluebird';
 import { Card, MenuItem, RaisedButton, SelectField, TextField } from 'material-ui';
 import React, { Component } from 'react';
 import TimePicker from 'material-ui/TimePicker';
+import AWS from 'aws-sdk';
+
+var imageBucketName = 'hr-community-images';
+var bucketRegion = 'us-east-1';
+var IdentityPoolId = 'us-east-1:b77a737f-1b1c-4801-9339-98bc072f2fbc';
+
+AWS.config.setPromisesDependency(Promise);
+
+AWS.config.update({
+  region: bucketRegion,
+  credentials: new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: IdentityPoolId
+  })
+});
+
+var s3 = new AWS.S3({
+  apiVersion: '2006-03-01',
+  params: {Bucket: imageBucketName}
+});
 
 class CreateEventForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       eventName: '',
       date: null,
       time: null,
       location: '',
       description: '',
-      category: 'select...',
+      category: 'Select Category...',
+      imageUrl: null,
       dateTime: null,
       eventNameError: null,
       dateError: null,
       timeError: null,
       locationError: null,
       categoryError: null,
+      hasImage: false
     };
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleDatePicker = this.handleDatePicker.bind(this);
     this.handleTimePicker = this.handleTimePicker.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.addImage = this.addImage.bind(this);
   }
 
   handleChange(e) {
@@ -56,16 +80,56 @@ class CreateEventForm extends Component {
       time: null,
       location: '',
       description: '',
-      category: 'select...',
+      category: 'Select Category...',
+      imageUrl: null,
       dateTime: null,
       eventNameError: null,
       dateError: null,
       timeError: null,
       locationError: null,
       categoryError: null,
+      hasImage: false
     });
+
+    document.getElementById('imageupload').value = '';
   }
 
+  addImage() {
+    const context = this;
+
+    const files = document.getElementById('imageupload').files;
+    if (!files.length) {
+      return alert('Please choose an image for your event.');
+      // TODO: change to form error message
+      // TODO: add label for "Add Event Image"
+      // TODO: show/hide add image button depending on if file input has value
+      // TODO: handle delete image
+    }
+
+    const file = files[0];
+    const fileName = file.name;
+
+    const params = {
+      Key: fileName,
+      Body: file,
+      ACL: 'public-read'
+    };
+
+    const s3uploadPromise = s3.upload(params).promise();
+
+    s3uploadPromise
+      .then((data) => {
+        console.log('Image upload to S3 successful', data);
+        context.setState({
+          imageUrl: data.Location,
+          hasImage: true
+        });
+
+      })
+      .catch((err) => {
+        console.log('Error occurred while uploading image to S3:', err);
+      });
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -182,6 +246,19 @@ class CreateEventForm extends Component {
           </SelectField>
         </div>
         <div>
+          <input type="file" id="imageupload" accept="image/*" />
+          <RaisedButton
+            label="Add Event Image"
+            labelColor={'#5E35B1'}
+            onTouchTap={this.addImage}
+          />
+        </div>
+        <div>
+          {this.state.hasImage ?
+            <img id="eventimage" style={styles.image} src={this.state.imageUrl} /> : null
+          }
+        </div>
+        <div>
           <RaisedButton
             label="Create Event"
             labelStyle={styles.buttonLabel}
@@ -222,6 +299,12 @@ const styles = {
   text: {
     fontFamily: 'Vibur',
     fontSize: '18px',
+  },
+  image: {
+    width: 'auto',
+    height: 'auto',
+    'max-width': 400,
+    'max-height': 400
   }
 };
 
