@@ -8,6 +8,7 @@ const db = require('../../db');
 const KEY = process.env.GOOGLE_API_KEY;
 const RevGeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const GeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+const defaultImgUrl = 'https://influitive.blob.core.windows.net/media/2015/06/creating_an_online_community_b2b_expert_tips.png';
 
 router.route('/')
   .get((req, res) => {
@@ -44,7 +45,7 @@ router.route('/createEvent')
         category: req.body.category,
         description: req.body.description,
         profile_id: req.body.userId || req.session.passport.user,
-        image: req.body.imageUrl || 'https://influitive.blob.core.windows.net/media/2015/06/creating_an_online_community_b2b_expert_tips.png',
+        image: req.body.imageUrl || defaultImgUrl,
         lat: lat,
         lng: lng
       };
