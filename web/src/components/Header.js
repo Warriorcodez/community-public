@@ -1,4 +1,5 @@
 import { AppBar, Drawer, MenuItem } from 'material-ui';
+import axios from 'axios';
 import React, { Component } from 'react';
 
 class Header extends Component {
@@ -11,18 +12,41 @@ class Header extends Component {
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleEditProfile = this.handleEditProfile.bind(this);
   }
 
   toggleDrawer() {
     this.setState({
       open: !this.state.open
     });
-    console.log('this was clicked and it should be doing something');
   }
 
   handleClose(event) {
     this.setState({
       open: false
+    });
+  }
+
+  handleEditProfile() {
+    console.log('User Profile was clicked successfully!');
+    axios.get('/profile')
+    .then(data => {
+      console.log('inside profile click ', data);
+    })
+    .catch(error => {
+      console.log('Error occurred.', error);
+    });
+  }
+
+  handleLogout() {
+    console.log('Logout was clicked successfully!');
+    axios.get('/logout')
+    .then(data => {
+      console.log('Successfully logged out. ', data);
+    })
+    .catch(error => {
+      console.log('There was an error logging out. ', error);
     });
   }
 
@@ -36,7 +60,6 @@ class Header extends Component {
           onLeftIconButtonTouchTap={this.toggleDrawer}
         />
           <Drawer
-            label={'HI'}
             open={this.state.open}
             onRequestChange={open => this.setState({ open })}
           >
@@ -48,12 +71,15 @@ class Header extends Component {
             />
             <MenuItem
               onTouchTap={this.handleClose}
-              primaryText="User profile"
+              onTouchTap={this.handleEditProfile}
+              primaryText="User Profile"
+              href={'/profile'}
             />
             <MenuItem
               onTouchTap={this.handleClose}
+              onTouchTap={this.handleLogout}
               primaryText="Logout"
-              // containerElement={<Link to="/logout"/>}
+              href={'/login'}
             />
           </Drawer>
       </div>
