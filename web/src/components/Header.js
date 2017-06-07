@@ -29,25 +29,11 @@ class Header extends Component {
   }
 
   handleEditProfile() {
-    console.log('User Profile was clicked successfully!');
-    axios.get('/profile')
-    .then(data => {
-      console.log('inside profile click ', data);
-    })
-    .catch(error => {
-      console.log('Error occurred.', error);
-    });
+    axios.get('/profile');
   }
 
   handleLogout() {
-    console.log('Logout was clicked successfully!');
-    axios.get('/logout')
-    .then(data => {
-      console.log('Successfully logged out. ', data);
-    })
-    .catch(error => {
-      console.log('There was an error logging out. ', error);
-    });
+    axios.get('/logout');
   }
 
   render () {
