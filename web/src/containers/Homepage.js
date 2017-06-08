@@ -2,7 +2,20 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { GridList, Tabs, Tab } from 'material-ui';
-import { changeHeader, updateForm, changeCenter, setMarkers, addGeolocation, addEvents, setCurrentEvent, toggleEventDetails, setCurrentEventParticipants, disableButton, incrementLikes, setCurrentEventLikes } from '../actions';
+import {
+  changeHeader,
+  updateForm,
+  changeCenter,
+  setMarkers,
+  addGeolocation,
+  addEvents,
+  setCurrentEvent,
+  toggleEventDetails,
+  setCurrentEventParticipants,
+  disableButton,
+  incrementLikes,
+  setCurrentEventLikes
+} from '../actions';
 import Header from '../components/Header';
 import CreateEventForm from '../components/CreateEventForm';
 import FindEvents from '../components/FindEvents';
@@ -58,7 +71,7 @@ class Homepage extends Component {
               />
             </Tab>
           </Tabs>
-          <div style={styles.style}>
+          <div>
             <Gmap
               addEvents={this.props.addEvents}
               addGeolocation={this.props.addGeolocation}
