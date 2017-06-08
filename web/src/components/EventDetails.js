@@ -70,19 +70,28 @@ class EventDetails extends Component {
           open={this.props.eventDetails.showEventDetails}
           onRequestClose={this.handleClose}
           >
-            Time: {parsedTime}
-            <br />
-            Location: {currentEvent.location}
-            <br />
-            Description: {currentEvent.description}
-            <br />
-            Category: {currentEvent.category}
-            <br />
-            Participants: {participants}
+          <div>
+            <img id="eventimage" style={styles.image} src={currentEvent.image} />
+          </div>
+          <br />
+            <p><strong>Time: </strong>{parsedTime}</p>
+            <p><strong>Location: </strong>{currentEvent.location}</p>
+            <p><strong>Description: </strong>{currentEvent.description}</p>
+            <p><strong>Category: </strong>{currentEvent.category}</p>
+            <p><strong>Participants: </strong>{participants}</p>
         </Dialog>
       );
     } else { return null; }
   }
 }
+
+const styles = {
+  image: {
+    width: 'auto',
+    height: 'auto',
+    'max-width': 500,
+    'max-height': 500
+  }
+};
 
 export default EventDetails;
