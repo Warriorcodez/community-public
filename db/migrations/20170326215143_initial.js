@@ -23,7 +23,7 @@ exports.up = function (knex, Promise) {
       table.increments('id').unsigned().primary();
       table.string('text', 500).notNullable();
       table.integer('event_id').references('events.id').onDelete('CASCADE');
-      table.integer('commenter_id').references('profiles.id').onDelete('CASCADE');
+      table.integer('profile_id').references('profiles.id').onDelete('CASCADE');
     }),
     knex.schema.createTableIfNotExists('events', function(table) {
       table.increments('id').unsigned().primary();
