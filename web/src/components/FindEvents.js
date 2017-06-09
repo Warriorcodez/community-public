@@ -15,11 +15,19 @@ class FindEvents extends Component {
     const lat = this.props.events[i].lat;
     const lng = this.props.events[i].lng;
     this.props.changeCenter({lat: Number(lat), lng: Number(lng)});
+
+    this.props.setCurrentEventParticipants([]);
     this.props.setCurrentEvent(i);
     this.props.toggleEventDetails();
 
     axios.post('/api/retrieveParticipants', { eventId: this.props.events[i].id })
-    .then(res => { this.props.setCurrentEventParticipants(res.data); })
+    .then(res => {
+      // let participants = res.data.filter(entry => entry.is_attending).map(entry => {
+      //   return { display: entry.profile.display, email: entry.profile.email };
+      // });
+      // console.log(participants);
+      this.props.setCurrentEventParticipants(res.data);
+    })
     .catch(err => { console.log(err); });
 
     axios.post('/api/connectEventToProfile', { eventId: this.props.events[i].id })

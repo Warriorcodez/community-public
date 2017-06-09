@@ -97,7 +97,6 @@ const styles = {
     backgroundColor: '#D1C4E9',
     fontFamily: 'Vibur',
     borderRightStyle: 'dotted',
-    border: '1',
     borderWidth: '1px',
   },
   location: {

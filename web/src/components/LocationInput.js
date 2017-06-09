@@ -95,7 +95,9 @@ const styles = {
   button: {
     border: '1px solid #5E35B1',
     borderRadius: '10px',
-    marginLeft: '18px'
+    marginLeft: '18px',
+    float: 'right',
+    marginRight: '10'
   },
   buttonLabel: {
     fontFamily: 'Vibur',
@@ -108,7 +110,8 @@ const styles = {
     fontSize: '20px',
     marginLeft: '8px',
     marginRight: '8px',
+    width: '530'
   },
   underline: {
-  }
+  },
 };

@@ -30,20 +30,4 @@ class GridTileComponent extends Component {
   }
 }
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    height: 490,
-    padding: 15,
-    overflowY: 'auto',
-  },
-  tile: {
-    margin: 10
-  }
-};
-
 export default GridTileComponent;

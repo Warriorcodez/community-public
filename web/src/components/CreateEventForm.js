@@ -303,8 +303,8 @@ const styles = {
   image: {
     width: 'auto',
     height: 'auto',
-    'max-width': 400,
-    'max-height': 400
+    'maxWidth': 400,
+    'maxHeight': 400
   }
 };
 

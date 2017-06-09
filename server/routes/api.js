@@ -151,6 +151,18 @@ router.route('/likeEvent')
     .catch(err => { res.send(err); });
   });
 
+// router.route('/retrieveParticipants')
+//   .post((req, res) => {
+//     models.Event_Profile.where({profile_id: req.body.eventId}).fetchAll({withRelated: ['profile']})
+//     .then((profiles) => {
+//       res.send(profiles);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.send(err);
+//     });
+//   });
+
 router.route('/retrieveParticipants')
   .post((req, res) => {
     return db.knex('events_profiles')
@@ -165,6 +177,18 @@ router.route('/retrieveParticipants')
       res.send(data);
     })
     .catch(err => { res.send(err); });
+  });
+
+router.route('/retrieveUserEvents')
+  .get((req, res) => {
+    models.Event_Profile.where({profile_id: req.session.passport.user}).fetchAll({withRelated: ['event']})
+    .then((profiles) => {
+      res.send(profiles);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
   });
 
 module.exports = router;

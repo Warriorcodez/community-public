@@ -13,6 +13,7 @@ class Header extends Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleHome = this.handleHome.bind(this);
     this.handleEditProfile = this.handleEditProfile.bind(this);
   }
 
@@ -30,6 +31,10 @@ class Header extends Component {
 
   handleEditProfile() {
     axios.get('/profile');
+  }
+
+  handleHome() {
+    axios.get('/');
   }
 
   handleLogout() {
@@ -54,6 +59,12 @@ class Header extends Component {
               showMenuIconButton={false}
               style={styles.theme}
               titleStyle={styles.title}
+            />
+            <MenuItem
+              onTouchTap={this.handleClose}
+              onTouchTap={this.handleHome}
+              primaryText="Home"
+              href={'/'}
             />
             <MenuItem
               onTouchTap={this.handleClose}

@@ -157,14 +157,12 @@ class Gmap extends Component {
         <IconButton style={styles.recenter}>
           <LocationSearching
             onTouchTap={this.recenter}
-            touch={true}
             color={'purple'}
           />
         </IconButton>
         <IconButton style={styles.refresh}>
           <Autorenew
             onTouchTap={this.onRefresh}
-            touch={true}
             color={'blue'}
           />
         </IconButton>

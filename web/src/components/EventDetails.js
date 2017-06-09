@@ -58,7 +58,7 @@ class EventDetails extends Component {
 
     if (currentEvent) {
       let parsedTime = moment(currentEvent.time).format('MMMM Do YYYY, h:mm a') + ' (' + moment(currentEvent.time).fromNow() + ')';
-      let participants = this.props.eventDetails.participants.map(obj => obj.display).join(',');
+      let participants = this.props.eventDetails.participants.map(obj => obj.display).join(', ');
 
       return (
         <Dialog
@@ -88,7 +88,8 @@ const styles = {
   image: {
     width: 'auto',
     height: 'auto',
-    'max-height': 250
+    'max-height': 250,
+    'max-width': 300,
   }
 };
 
