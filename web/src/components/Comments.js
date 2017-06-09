@@ -13,14 +13,13 @@ class Comments extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.clearInputField = this.clearInputField.bind(this);
+    this.clearText = this.clearText.bind(this);
   }
 
   handleChange(event) {
     this.setState({
       text: event.target.value,
-      // date: null, // do I need date and time?
-      // time: null
+      // date + time: null, // do I need date and time?
     });
   }
 
@@ -30,35 +29,23 @@ class Comments extends Component {
       text: this.state.text,
       event_id: this.props.eventDetails.currentEventIndex,
       profile_id: null
+      // date + time ?
     })
     .then(res => {
-      console.log('response object ', res);
+      console.log('response object ', res); // FIX CLEAR FORM 
+      this.clearText();
     });
+    // .catch(error => {
+    //
+    // });
   }
 
-  clearInputField() {
+  clearText() {
     this.setState({
       text: '',
-      // date: null, // do i need date and time?
-      // time: null
+      // date + time ?
     });
   }
-
-/*
-the server will send a response data object back
-the response data object will be the same as the request object
-the client will render the data object on the comments section with the latest comment appended to the top of the list
-
-make a post request to the server
-send a request object
-the request object will have the text from the input field as a property
-receive the latest comment back in a response object from the server
-Showing existing comments
-Make a get request to the server ‘/comments’
-With query parameters for the event id (?event_id=number)
-*/
-
-// event_id = this.props.eventDetails.currentEventIndex
 
 
   render() {

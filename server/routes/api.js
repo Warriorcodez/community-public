@@ -275,7 +275,8 @@ router.route('/comments')
     profile_id: req.session.passport.user,
     text: req.body.text
   };
-  return models.Comment.where(commentInfo).save()
+  console.log('what is commentInfo on the server side = ', commentInfo);
+  return models.Comment.forge(commentInfo).save()
   .then(data => {
     console.log('DATA inside server ', data);
     res.send(data);
@@ -284,6 +285,18 @@ router.route('/comments')
     res.send(error);
   });
 });
+
+// return models.Event.forge(eventInfo).save()
+// .catch(err => { throw err; });
+// })
+// .then(() => {
+// result.status = 'saved!!!';
+// res.status(201).send(result);
+// })
+// .catch((err) => {
+// res.status(400).send(err);
+// });
+
 
 /*
 The server will route the incoming request object from the client-side to '/comments'
