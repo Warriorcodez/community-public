@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dialog, FlatButton, RaisedButton, Avatar, Chip } from 'material-ui';
 import axios from 'axios';
 import moment from 'moment';
+import Comments from './Comments';
 
 class EventDetails extends Component {
   constructor(props) {
@@ -35,6 +36,8 @@ class EventDetails extends Component {
     })
     .catch(err => { console.log(err); });
   }
+
+
 
   render() {
     let currentEvent = this.props.eventDetails.currentEvent;
@@ -93,6 +96,9 @@ class EventDetails extends Component {
             })}
             </p>
           </div>
+            <p><strong>Participants: </strong>{participants}</p>
+            <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
+            <Comments {...this.props}/>
         </Dialog>
       );
     } else { return null; }
