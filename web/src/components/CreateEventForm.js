@@ -42,6 +42,7 @@ class CreateEventForm extends Component {
       timeError: null,
       locationError: null,
       categoryError: null,
+      choseImage: false,
       hasImage: false
     };
 
@@ -51,6 +52,7 @@ class CreateEventForm extends Component {
     this.handleDatePicker = this.handleDatePicker.bind(this);
     this.handleTimePicker = this.handleTimePicker.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.showAddImageButton = this.showAddImageButton.bind(this);
     this.addImage = this.addImage.bind(this);
   }
 
@@ -88,10 +90,17 @@ class CreateEventForm extends Component {
       timeError: null,
       locationError: null,
       categoryError: null,
+      choseImage: false,
       hasImage: false
     });
 
     document.getElementById('imageupload').value = '';
+  }
+
+  showAddImageButton() {
+    this.setState({
+      choseImage: !this.state.choseImage
+    });
   }
 
   addImage() {
@@ -107,6 +116,7 @@ class CreateEventForm extends Component {
     }
 
     const file = files[0];
+    console.log(file);
     const fileName = file.name;
 
     const params = {
@@ -245,19 +255,22 @@ class CreateEventForm extends Component {
             <MenuItem value="other" primaryText="Other" onTouchTap={this.handleSelect} />
           </SelectField>
         </div>
+        <br />
         <div>
-          <input type="file" id="imageupload" accept="image/*" />
+          <input type="file" id="imageupload" accept="image/*" onChange={this.showAddImageButton}/>
+          {this.state.choseImage ?
           <RaisedButton
             label="Add Event Image"
             labelColor={'#5E35B1'}
             onTouchTap={this.addImage}
-          />
+          /> : null}
         </div>
         <div>
           {this.state.hasImage ?
             <img id="eventimage" style={styles.image} src={this.state.imageUrl} /> : null
           }
         </div>
+        <br />
         <div>
           <RaisedButton
             label="Create Event"

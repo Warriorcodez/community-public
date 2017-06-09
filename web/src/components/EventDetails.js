@@ -68,10 +68,9 @@ class EventDetails extends Component {
           modal={false}
           open={this.props.eventDetails.showEventDetails}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}
           >
           <div>
-            <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
+            <img id="eventimage" style={styles.image} src={currentEvent.image} />
           </div>
           <br />
             <p><strong>Time: </strong>{parsedTime}</p>
@@ -90,8 +89,8 @@ const styles = {
   image: {
     width: 'auto',
     height: 'auto',
-    'max-height': 250,
-    'max-width': 300,
+    maxWidth: 300,
+    maxHeight: 350
   }
 };
 
