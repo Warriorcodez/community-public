@@ -1,6 +1,6 @@
 const initialState = {
   showEventDetails: false,
-  currentEventIndex: 0,
+  currentEvent: {},
   participants: [],
   attendDisabled: false,
   likeDisabled: false
@@ -13,7 +13,7 @@ export default function(state = initialState, action) {
     return Object.assign({}, state, { showEventDetails: !state.showEventDetails });
 
   case 'SET_CURRENT_EVENT':
-    return Object.assign({}, state, { currentEventIndex: action.payload });
+    return Object.assign({}, state, { currentEvent: action.payload });
 
   case 'SET_CURRENT_EVENT_PARTICIPANTS':
     return Object.assign({}, state, { participants: action.payload });

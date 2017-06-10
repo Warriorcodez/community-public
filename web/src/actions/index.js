@@ -39,10 +39,10 @@ export const toggleEventDetails = () => {
   };
 };
 
-export const setCurrentEvent = (index) => {
+export const setCurrentEvent = (data) => {
   return {
     type: 'SET_CURRENT_EVENT',
-    payload: index
+    payload: data
   };
 };
 

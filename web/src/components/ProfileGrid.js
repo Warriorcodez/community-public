@@ -8,6 +8,32 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 class ProfileGrid extends Component {
   constructor(props) {
     super(props);
+    this.onGridClick = this.onGridClick.bind(this);
+  }
+
+  onGridClick(i) {
+    this.props.setCurrentEventParticipants([]);
+    this.props.setCurrentEvent(this.props.events[i]);
+    this.props.toggleEventDetails();
+
+    axios.post('/api/retrieveParticipants', { eventId: this.props.events[i].id })
+    .then(res => {
+      // let participants = res.data.filter(entry => entry.is_attending).map(entry => {
+      //   return { display: entry.profile.display, email: entry.profile.email };
+      // });
+      // console.log(participants);
+      this.props.setCurrentEventParticipants(res.data);
+    })
+    .catch(err => { console.log(err); });
+
+    axios.post('/api/connectEventToProfile', { eventId: this.props.events[i].id })
+    .then(res => {
+      this.props.disableButton({
+        attendDisabled: !!res.data.is_attending,
+        likeDisabled: !!res.data.liked
+      });
+    })
+    .catch(err => { console.log(err); });
   }
 
   render() {
@@ -27,7 +53,7 @@ class ProfileGrid extends Component {
               actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               imageSRC={tile.image}
               data={this.props.events}
-              onClick={() => console.log('clicked')}
+              onClick={() => this.onGridClick(i)}
             >
             </GridTileComponent>
           ))}

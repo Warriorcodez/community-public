@@ -16,7 +16,7 @@ class EventDetails extends Component {
   }
 
   handleAttend() {
-    let currentEvent = this.props.events[this.props.eventDetails.currentEventIndex];
+    let currentEvent = this.props.eventDetails.currentEvent;
     axios.post('/api/attendEvent', { eventId: currentEvent.id })
     .then(res => {
       console.log(res.data);
@@ -26,7 +26,7 @@ class EventDetails extends Component {
   }
 
   handleLike() {
-    let currentEvent = this.props.events[this.props.eventDetails.currentEventIndex];
+    let currentEvent = this.props.eventDetails.currentEvent;
     axios.post('/api/likeEvent', { eventId: currentEvent.id })
     .then(res => {
       console.log(res.data);
@@ -36,7 +36,7 @@ class EventDetails extends Component {
   }
 
   render() {
-    let currentEvent = this.props.events[this.props.eventDetails.currentEventIndex];
+    let currentEvent = this.props.eventDetails.currentEvent;
 
     const actions = [
       <FlatButton

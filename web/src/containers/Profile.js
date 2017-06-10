@@ -2,7 +2,7 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Card } from 'material-ui';
-import { changeHeader, updateForm, changeCenter, setMarkers, addGeolocation, addEvents, setCurrentEvent, toggleEventDetails, setCurrentEventParticipants, disableButton } from '../actions';
+import { addEvents, setCurrentEvent, toggleEventDetails, setCurrentEventParticipants, disableButton } from '../actions';
 import Header from '../components/Header';
 import ProfileGrid from '../components/ProfileGrid';
 import EventDetails from '../components/EventDetails';
@@ -44,11 +44,30 @@ class Profile extends Component {
         <Card style={styles.container} >
           <div style={styles.welcome} >Welcome, {JSON.parse(window.user).first}</div>
           <div style={styles.heading} >Upcoming Events:</div>
-          <ProfileGrid events={this.state.upcomingEvents}/>
+          <ProfileGrid events={this.state.upcomingEvents}
+            setCurrentEvent={this.props.setCurrentEvent}
+            eventDetails={this.props.eventDetails}
+            toggleEventDetails={this.props.toggleEventDetails}
+            disableButton={this.props.disableButton}
+            setCurrentEventParticipants={this.props.setCurrentEventParticipants}
+          />
           <br />
           <div style={styles.heading} >Past Events:</div>
-          <ProfileGrid events={this.state.pastEvents}/>
+          <ProfileGrid events={this.state.pastEvents}
+            setCurrentEvent={this.props.setCurrentEvent}
+            eventDetails={this.props.eventDetails}
+            toggleEventDetails={this.props.toggleEventDetails}
+            disableButton={this.props.disableButton}
+            setCurrentEventParticipants={this.props.setCurrentEventParticipants}
+
+          />
         </Card>
+        <EventDetails
+          toggleEventDetails={this.props.toggleEventDetails}
+          eventDetails={this.props.eventDetails}
+          disableButton={this.props.disableButton}
+          events={this.props.events}
+        />
       </div>
     );
   }

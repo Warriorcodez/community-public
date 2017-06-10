@@ -20,7 +20,7 @@ class FindEvents extends Component {
     const lng = this.props.events[i].lng;
     this.props.changeCenter({lat: Number(lat), lng: Number(lng)});
     this.props.setCurrentEventParticipants([]);
-    this.props.setCurrentEvent(i);
+    this.props.setCurrentEvent(this.props.events[i]);
     this.props.toggleEventDetails();
 
     axios.post('/api/retrieveParticipants', { eventId: this.props.events[i].id })
