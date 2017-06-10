@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
-const profile_id = 1; // FIX ME
-
 class Comments extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +17,6 @@ class Comments extends Component {
   handleChange(event) {
     this.setState({
       text: event.target.value,
-      // date + time: null, // do I need date and time?
     });
   }
 
@@ -27,12 +24,11 @@ class Comments extends Component {
     event.preventDefault();
     axios.post('/api/comments', {
       text: this.state.text,
-      event_id: this.props.eventDetails.currentEventIndex,
+      event_id: this.props.eventDetails.currentEvent.id,
       profile_id: null
-      // date + time ?
     })
     .then(res => {
-      console.log('response object ', res); // FIX CLEAR FORM 
+      console.log('response object ', res); // FIX CLEAR FORM
       this.clearText();
     });
     // .catch(error => {
@@ -49,9 +45,6 @@ class Comments extends Component {
 
 
   render() {
-    // console.log('PROPS ===??? ', this.props);
-    // console.log('props in comments ', this.props);
-    // console.log('current event index = ', this.props.eventDetails.currentEventIndex)
     return (
       <div>
         <form style={styles.container}>

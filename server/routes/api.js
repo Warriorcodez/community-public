@@ -261,54 +261,27 @@ router.route('/retrieveS3Credentials')
 
 router.route('/comments')
 .post((req, res) => {
-  // console.log('server side request body === ', req.body);
-  // console.log('setting the profile id === ', req.body.profile_id = req.session.passport.user);
-  // return db.knex('comments')
-  // .where({
-  //   event_id: req.body.event_id,
-  //   profile_id: req.session.passport.user,
-  //   text: req.body.text
-  // })
-  // .then(data => {})
   const commentInfo = {
     event_id: req.body.event_id,
     profile_id: req.session.passport.user,
-    text: req.body.text
+    text: req.body.text,
+    username: ''
   };
-  console.log('what is commentInfo on the server side = ', commentInfo);
-  return models.Comment.forge(commentInfo).save()
+  models.Profile.where({id: req.session.passport.user}).fetch()
   .then(data => {
-    console.log('DATA inside server ', data);
-    res.send(data);
-  })
-  .catch(error => {
-    res.send(error);
+    commentInfo.username = data.attributes.display;
+    return models.Comment.forge(commentInfo).save()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(error => {
+      console.log('There was an error saving comments to the databse! ', error);
+    });
   });
 });
 
-// return models.Event.forge(eventInfo).save()
-// .catch(err => { throw err; });
-// })
-// .then(() => {
-// result.status = 'saved!!!';
-// res.status(201).send(result);
-// })
-// .catch((err) => {
-// res.status(400).send(err);
-// });
+router.route('/comments')
+.get()
 
-
-/*
-The server will route the incoming request object from the client-side to '/comments'
-the server will accept post requests with request and response objects as inputs
-  And query the database - insert data in the db where:
-    The table name is comments
-    The event_id field in the comments table will be set to the incoming event id from the req body
-    The profile_id field in the comments table will be set to the incoming profile_id from the req body
-    The text field in the comments table will be set to the incoming text on the req body
-  Then the server will send a data object back to the client
-    This data object will have the latest comment and username in it
-
-*/
 
 module.exports = router;
