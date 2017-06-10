@@ -134,7 +134,6 @@ class CreateEventForm extends Component {
           imageUrl: data.Location,
           hasImage: true
         });
-
       })
       .catch((err) => {
         console.log('Error occurred while uploading image to S3:', err);

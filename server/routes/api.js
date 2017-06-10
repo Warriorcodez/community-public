@@ -5,6 +5,11 @@ const router = express.Router();
 const models = require('../../db/models');
 const db = require('../../db');
 
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const S3_BUCKET = process.env.S3_BUCKET;
+const BUCKET_REGION = process.env.BUCKET_REGION;
+
 const KEY = process.env.GOOGLE_API_KEY;
 const RevGeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const GeoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
@@ -57,6 +62,7 @@ router.route('/createEvent')
       res.status(201).send(result);
     })
     .catch((err) => {
+      console.log('Error:', err);
       res.status(400).send(err);
     });
   });
@@ -231,6 +237,17 @@ router.route('/retrieveUserEvents')
     .catch((err) => {
       console.log(err);
       res.send(err);
+    });
+  });
+
+router.route('/retrieveS3Credentials')
+  .get((req, res) => {
+    res.send({
+      accessKey: AWS_ACCESS_KEY_ID,
+      secretKey: AWS_SECRET_ACCESS_KEY,
+      bucket: S3_BUCKET,
+      region: BUCKET_REGION,
+      successStatus: 201
     });
   });
 
