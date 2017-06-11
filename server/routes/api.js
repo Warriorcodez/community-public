@@ -280,8 +280,36 @@ router.route('/comments')
   });
 });
 
-router.route('/comments')
-.get()
+router.route('/retrieveComments')
+  .get((req, res) => {
+    return models.Comment.where('event_id', '=', req.query.event_id).fetchAll()
+    .then(comments => {
+      res.send(comments);
+    })
+    .catch(error => {
+      console.log('There was an error retreiving all comments from the database! ', error);
+    });
+  });
 
 
 module.exports = router;
+
+// .get((req, res) => {
+//   const category = req.query.query;
+//   if (category === 'All') {
+//     return db.knex.select().from('events')
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send('error ' + err);
+//     });
+//   } else {
+//     return db.knex.select().from('events')
+//     .where({ category: category })
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send('error ' + err);
+//     });

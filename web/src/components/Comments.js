@@ -6,12 +6,32 @@ class Comments extends Component {
     super(props);
 
     this.state = {
-      text: ''
+      text: '',
+      comments: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.clearText = this.clearText.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get('/api/retrieveComments?event_id=' + this.props.eventDetails.currentEvent.id)
+    .then(comments => {
+      // console.log('Comments === ', comments)
+      const commentsArray = comments.data.map(comment => {
+
+        return {
+          username: comment.username,
+          comment: comment.text,
+          createdAt: comment.created_at
+        };
+      });
+
+      this.setState({comments: commentsArray});
+      // console.log('state right now ??? === ', this.state )
+      // console.log('ALL COMMENTS ? === ', commentsArray);
+    });
   }
 
   handleChange(event) {
@@ -28,23 +48,19 @@ class Comments extends Component {
       profile_id: null
     })
     .then(res => {
-      console.log('response object ', res); // FIX CLEAR FORM
-      this.clearText();
+      this.clearText(); //FIX ME
     });
-    // .catch(error => {
-    //
-    // });
   }
 
   clearText() {
     this.setState({
       text: '',
-      // date + time ?
     });
   }
 
 
   render() {
+    console.log('current state === ', this.state)
     return (
       <div>
         <form style={styles.container}>
@@ -61,6 +77,10 @@ class Comments extends Component {
         </form>
         <div>
           *** THIS SECTION WILL HAVE ALL COMMENTS RELATED TO THE EVENT ***
+          {this.state.comments.map(comment => (
+            // console.log('comment ==== ', comment.username);
+            <p><strong>{comment.username} </strong> {comment.comment} {comment.createdAt}</p>
+          ))}
         </div>
       </div>
     );

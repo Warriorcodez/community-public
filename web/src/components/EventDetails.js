@@ -37,8 +37,6 @@ class EventDetails extends Component {
     .catch(err => { console.log(err); });
   }
 
-
-
   render() {
     let currentEvent = this.props.eventDetails.currentEvent;
 
