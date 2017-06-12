@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Dialog, FlatButton, RaisedButton, Avatar, Chip, Tabs, Tab } from 'material-ui';
 import axios from 'axios';
-import moment from 'moment';
 import Comments from './Comments';
+import FontIcon from 'material-ui/FontIcon';
+import Home from 'material-ui-icons/Home';
+import IconButton from 'material-ui/IconButton';
+import moment from 'moment';
 
 class EventDetails extends Component {
   constructor(props) {
@@ -51,11 +54,13 @@ class EventDetails extends Component {
         onTouchTap={this.handleAttend}
         disabled={this.props.eventDetails.attendDisabled}
       />,
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />
+      <IconButton style={styles.homeIcon}>
+        <Home
+          onTouchTap={this.handleClose}
+          color='purple'
+          hoverColor='hotpink'
+        />
+      </IconButton>
     ];
 
     if (currentEvent) {
@@ -171,6 +176,11 @@ const styles = {
     borderColor: '#5E35B1',
     borderRightStyle: 'dotted',
     borderWidth: '1px',
+  },
+  homeIcon: {
+    position: 'absolute',
+    left: '10',
+    bottom: '1'
   }
 };
 
