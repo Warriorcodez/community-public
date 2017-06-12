@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Dialog, FlatButton, RaisedButton, Avatar, Chip, Tabs, Tab } from 'material-ui';
 import axios from 'axios';
 import Comments from './Comments';
+import { Dialog, FlatButton, RaisedButton, Avatar, Chip, Tabs, Tab } from 'material-ui';
 import FontIcon from 'material-ui/FontIcon';
 import Home from 'material-ui-icons/Home';
 import IconButton from 'material-ui/IconButton';
+import React, { Component } from 'react';
 import moment from 'moment';
 
 class EventDetails extends Component {
@@ -58,7 +58,7 @@ class EventDetails extends Component {
         <Home
           onTouchTap={this.handleClose}
           color='purple'
-          hoverColor='hotpink'
+          hoverColor='blue'
         />
       </IconButton>
     ];
@@ -76,66 +76,34 @@ class EventDetails extends Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           >
-          <div style={styles.left}>
-            <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
-          </div>
-          <div style={styles.right}>
-            <img src="https://image.flaticon.com/icons/png/128/148/148836.png" width='20' alt="likes" />
-            {this.props.eventDetails.likeCount}
-            <p><strong>Time: </strong>{parsedTime}</p>
-            <p><strong>Location: </strong>{currentEvent.location}</p>
-            <p><strong>Description: </strong>{currentEvent.description}</p>
-            <p><strong>Category: </strong>{currentEvent.category}</p>
-            <p><strong>Participants: </strong>
-            {participants.map(participant => {
-              return (
-                <div style={styles.wrapper}>
-                  <Chip onTouchTap={() => console.log('clicked')} style={styles.chip} >
-                    <Avatar src={participant.profile_picture} size={50} />
-                    {participant.display}
-                  </Chip>
-                </div>
-              );
-            })}
-            </p>
-          </div>
-            <p><strong>Participants: </strong>{participants}</p>
-            <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
-            <Comments {...this.props}/>
-            <Tabs>
-              <Tab
-                label="Event Details"
-              >
-                <div>
-                  <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
-                </div>
-                <br />
-                  <p><strong>Time: </strong>{parsedTime}</p>
-                  <p><strong>Location: </strong>{currentEvent.location}</p>
-                  <p><strong>Description: </strong>{currentEvent.description}</p>
-                  <p><strong>Category: </strong>{currentEvent.category}</p>
-                  <p><strong>Participants: </strong>{participants}</p>
-                  <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
-              </Tab>
-              <Tab
-                label="Event Comments"
-              >
-                <Comments {...this.props}/>
-              </Tab>
-            </Tabs>
           <Tabs>
             <Tab
               label="Event Details"
               style={styles.leftTab}
             >
-              <div>
+              <div style={styles.left}>
                 <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
               </div>
-              <br />
+              <div style={styles.right}>
+                <img src="https://image.flaticon.com/icons/png/128/148/148836.png" width='20' alt="likes" />
+                {this.props.eventDetails.likeCount}
                 <p><strong>Time: </strong>{parsedTime}</p>
                 <p><strong>Location: </strong>{currentEvent.location}</p>
                 <p><strong>Description: </strong>{currentEvent.description}</p>
                 <p><strong>Category: </strong>{currentEvent.category}</p>
+                <p><strong>Participants: </strong>
+                {participants.map(participant => {
+                  return (
+                    <div style={styles.wrapper}>
+                      <Chip onTouchTap={() => console.log('clicked')} style={styles.chip} >
+                        <Avatar src={participant.profile_picture} size={50} />
+                        {participant.display}
+                      </Chip>
+                    </div>
+                  );
+                })}
+                </p>
+              </div>
                 <p><strong>Participants: </strong>{participants}</p>
                 <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
             </Tab>
@@ -153,20 +121,11 @@ class EventDetails extends Component {
 }
 
 const styles = {
-  left: { float: 'left' },
-  right: { float: 'left', paddingLeft: 7 },
   image: {
     width: 'auto',
     height: 'auto',
     'max-height': 250,
     'max-width': 300,
-  },
-  chip: {
-    margin: 4,
-  },
-  wrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
   },
   theme: {
     backgroundColor: '#D1C4E9',
