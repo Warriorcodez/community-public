@@ -259,4 +259,57 @@ router.route('/retrieveS3Credentials')
     });
   });
 
+router.route('/comments')
+.post((req, res) => {
+  const commentInfo = {
+    event_id: req.body.event_id,
+    profile_id: req.session.passport.user,
+    text: req.body.text,
+    username: ''
+  };
+  models.Profile.where({id: req.session.passport.user}).fetch()
+  .then(data => {
+    commentInfo.username = data.attributes.display;
+    return models.Comment.forge(commentInfo).save()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(error => {
+      console.log('There was an error saving comments to the databse! ', error);
+    });
+  });
+});
+
+router.route('/retrieveComments')
+  .get((req, res) => {
+    return models.Comment.where('event_id', '=', req.query.event_id).fetchAll()
+    .then(comments => {
+      res.send(comments);
+    })
+    .catch(error => {
+      console.log('There was an error retreiving all comments from the database! ', error);
+    });
+  });
+
+
 module.exports = router;
+
+// .get((req, res) => {
+//   const category = req.query.query;
+//   if (category === 'All') {
+//     return db.knex.select().from('events')
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send('error ' + err);
+//     });
+//   } else {
+//     return db.knex.select().from('events')
+//     .where({ category: category })
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send('error ' + err);
+//     });

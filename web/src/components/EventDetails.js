@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
-import { Dialog, FlatButton, RaisedButton, Avatar, Chip } from 'material-ui';
 import axios from 'axios';
+import Comments from './Comments';
+import { Dialog, FlatButton, RaisedButton, Avatar, Chip, Tabs, Tab } from 'material-ui';
+import FontIcon from 'material-ui/FontIcon';
+import Home from 'material-ui-icons/Home';
+import IconButton from 'material-ui/IconButton';
+import React, { Component } from 'react';
 import moment from 'moment';
 
 class EventDetails extends Component {
@@ -50,11 +54,13 @@ class EventDetails extends Component {
         onTouchTap={this.handleAttend}
         disabled={this.props.eventDetails.attendDisabled}
       />,
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />
+      <IconButton style={styles.homeIcon}>
+        <Home
+          onTouchTap={this.handleClose}
+          color='purple'
+          hoverColor='blue'
+        />
+      </IconButton>
     ];
 
     if (currentEvent) {
@@ -70,29 +76,44 @@ class EventDetails extends Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           >
-          <div style={styles.left}>
-            <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
-          </div>
-          <div style={styles.right}>
-            <img src="https://image.flaticon.com/icons/png/128/148/148836.png" width='20' alt="likes" />
-            {this.props.eventDetails.likeCount}
-            <p><strong>Time: </strong>{parsedTime}</p>
-            <p><strong>Location: </strong>{currentEvent.location}</p>
-            <p><strong>Description: </strong>{currentEvent.description}</p>
-            <p><strong>Category: </strong>{currentEvent.category}</p>
-            <p><strong>Participants: </strong>
-            {participants.map(participant => {
-              return (
-                <div style={styles.wrapper}>
-                  <Chip onTouchTap={() => console.log('clicked')} style={styles.chip} >
-                    <Avatar src={participant.profile_picture} size={50} />
-                    {participant.display}
-                  </Chip>
-                </div>
-              );
-            })}
-            </p>
-          </div>
+          <Tabs>
+            <Tab
+              label="Event Details"
+              style={styles.leftTab}
+            >
+              <div style={styles.left}>
+                <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
+              </div>
+              <div style={styles.right}>
+                <img src="https://image.flaticon.com/icons/png/128/148/148836.png" width='20' alt="likes" />
+                {this.props.eventDetails.likeCount}
+                <p><strong>Time: </strong>{parsedTime}</p>
+                <p><strong>Location: </strong>{currentEvent.location}</p>
+                <p><strong>Description: </strong>{currentEvent.description}</p>
+                <p><strong>Category: </strong>{currentEvent.category}</p>
+                <p><strong>Participants: </strong>
+                {participants.map(participant => {
+                  return (
+                    <div style={styles.wrapper}>
+                      <Chip onTouchTap={() => console.log('clicked')} style={styles.chip} >
+                        <Avatar src={participant.profile_picture} size={50} />
+                        {participant.display}
+                      </Chip>
+                    </div>
+                  );
+                })}
+                </p>
+              </div>
+                <p><strong>Participants: </strong>{participants}</p>
+                <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
+            </Tab>
+            <Tab
+              label="Event Comments"
+              style={styles.theme}
+            >
+              <Comments {...this.props}/>
+            </Tab>
+          </Tabs>
         </Dialog>
       );
     } else { return null; }
@@ -100,21 +121,26 @@ class EventDetails extends Component {
 }
 
 const styles = {
-  left: { float: 'left' },
-  right: { float: 'left', paddingLeft: 7 },
   image: {
     width: 'auto',
     height: 'auto',
     'max-height': 250,
     'max-width': 300,
   },
-  chip: {
-    margin: 4,
+  theme: {
+    backgroundColor: '#D1C4E9',
   },
-  wrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  leftTab: {
+    backgroundColor: '#D1C4E9',
+    borderColor: '#5E35B1',
+    borderRightStyle: 'dotted',
+    borderWidth: '1px',
   },
+  homeIcon: {
+    position: 'absolute',
+    left: '10',
+    bottom: '1'
+  }
 };
 
 export default EventDetails;
