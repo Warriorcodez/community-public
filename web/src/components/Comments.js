@@ -1,5 +1,11 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import react_time_ago from 'react-time-ago';
+import javascript_time_ago from 'javascript-time-ago';
+javascript_time_ago.locale(require('javascript-time-ago/locales/en'));
+import ReactTimeAgo from 'react-time-ago';
+require('javascript-time-ago/intl-messageformat-global');
+require('intl-messageformat/dist/locale-data/en');
 
 class Comments extends Component {
   constructor(props) {
@@ -20,13 +26,17 @@ class Comments extends Component {
     .then(comments => {
       // console.log('Comments === ', comments)
       const commentsArray = comments.data.map(comment => {
-
         return {
           username: comment.username,
           comment: comment.text,
           createdAt: comment.created_at
         };
+      })
+      .sort((latest, oldest) => {
+        return new Date(oldest.createdAt) - new Date(latest.createdAt);
       });
+
+      console.log('Sorted comments array ---------------------- ', commentsArray)
 
       this.setState({comments: commentsArray});
       // console.log('state right now ??? === ', this.state )
@@ -60,7 +70,7 @@ class Comments extends Component {
 
 
   render() {
-    console.log('current state === ', this.state)
+    // console.log('current state === ', this.state)
     return (
       <div>
         <form style={styles.container}>
@@ -78,8 +88,14 @@ class Comments extends Component {
         <div>
           *** THIS SECTION WILL HAVE ALL COMMENTS RELATED TO THE EVENT ***
           {this.state.comments.map(comment => (
-            // console.log('comment ==== ', comment.username);
-            <p><strong>{comment.username} </strong> {comment.comment} {comment.createdAt}</p>
+            <p>
+              <strong>{comment.username} </strong> {comment.comment} {' '}
+            {/* <ReactTimeAgo
+              // locale='en-GB'
+              // timeStyle='twitter'>
+            {/* </ReactTimeAgo> */}
+            {comment.createdAt}
+          </p>
           ))}
         </div>
       </div>

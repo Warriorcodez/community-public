@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dialog, FlatButton, RaisedButton, Avatar, Chip } from 'material-ui';
+import { Dialog, FlatButton, RaisedButton, Avatar, Chip, Tabs, Tab } from 'material-ui';
 import axios from 'axios';
 import moment from 'moment';
 import Comments from './Comments';
@@ -97,6 +97,27 @@ class EventDetails extends Component {
             <p><strong>Participants: </strong>{participants}</p>
             <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
             <Comments {...this.props}/>
+            <Tabs>
+              <Tab
+                label="Event Details"
+              >
+                <div>
+                  <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
+                </div>
+                <br />
+                  <p><strong>Time: </strong>{parsedTime}</p>
+                  <p><strong>Location: </strong>{currentEvent.location}</p>
+                  <p><strong>Description: </strong>{currentEvent.description}</p>
+                  <p><strong>Category: </strong>{currentEvent.category}</p>
+                  <p><strong>Participants: </strong>{participants}</p>
+                  <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
+              </Tab>
+              <Tab
+                label="Event Comments"
+              >
+                <Comments {...this.props}/>
+              </Tab>
+            </Tabs>
         </Dialog>
       );
     } else { return null; }
