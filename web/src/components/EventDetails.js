@@ -118,6 +118,29 @@ class EventDetails extends Component {
                 <Comments {...this.props}/>
               </Tab>
             </Tabs>
+          <Tabs>
+            <Tab
+              label="Event Details"
+              style={styles.leftTab}
+            >
+              <div>
+                <img id="eventimage" style={styles.image} src={currentEvent.image} alt=''/>
+              </div>
+              <br />
+                <p><strong>Time: </strong>{parsedTime}</p>
+                <p><strong>Location: </strong>{currentEvent.location}</p>
+                <p><strong>Description: </strong>{currentEvent.description}</p>
+                <p><strong>Category: </strong>{currentEvent.category}</p>
+                <p><strong>Participants: </strong>{participants}</p>
+                <p><strong>Likes: </strong>{this.props.eventDetails.likeCount}</p>
+            </Tab>
+            <Tab
+              label="Event Comments"
+              style={styles.theme}
+            >
+              <Comments {...this.props}/>
+            </Tab>
+          </Tabs>
         </Dialog>
       );
     } else { return null; }
@@ -140,6 +163,15 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
   },
+  theme: {
+    backgroundColor: '#D1C4E9',
+  },
+  leftTab: {
+    backgroundColor: '#D1C4E9',
+    borderColor: '#5E35B1',
+    borderRightStyle: 'dotted',
+    borderWidth: '1px',
+  }
 };
 
 export default EventDetails;

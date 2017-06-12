@@ -60,7 +60,6 @@
     "react-material-flexbox": "^1.0.9",
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^2.0.1",
-    "react-time-ago": "^0.3.6",
     "redis": "^2.7.1",
     "redux": "^3.6.0",
     "webpack": "^2.3.2"
