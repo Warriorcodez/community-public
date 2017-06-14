@@ -44,7 +44,7 @@ class Profile extends Component {
         <Card style={styles.container} >
           <div style={styles.welcome} >Welcome, {JSON.parse(window.user).first}</div>
           <Avatar src={JSON.parse(window.user).profile_picture} size={100} />
-          <h3 style={styles.heading} >Upcoming Events:</h3>
+          <h3 style={styles.heading} >Upcoming Events</h3>
           <ProfileGrid events={this.state.upcomingEvents}
             setCurrentEvent={this.props.setCurrentEvent}
             eventDetails={this.props.eventDetails}
@@ -53,7 +53,7 @@ class Profile extends Component {
             setCurrentEventParticipants={this.props.setCurrentEventParticipants}
           />
           <br />
-          <h3 style={styles.heading} >Past Events:</h3>
+          <h3 style={styles.heading} >Past Events</h3>
           <ProfileGrid events={this.state.pastEvents}
             setCurrentEvent={this.props.setCurrentEvent}
             eventDetails={this.props.eventDetails}
@@ -81,11 +81,13 @@ const styles = {
   welcome: {
     fontSize: 20,
     fontFamily: 'Roboto',
-    align: 'center'
+    align: 'center',
+    color: '#31575B'
   },
   heading: {
     fontSize: 20,
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
+    color: '#31575B'
   }
 };
 
