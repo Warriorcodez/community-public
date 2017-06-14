@@ -295,12 +295,11 @@ router.route('/comments')
 .post((req, res) => {
   const commentInfo = {
     event_id: req.body.event_id,
-    profile_id: req.body.userId || req.session.passport.user,
+    profile_id: req.body.profile_id || req.session.passport.user,
     text: req.body.text,
     username: ''
   };
-  console.log('INCOMING COMMENT POST FROM MOBILE ', req.body)
-  models.Profile.where({id: req.session.passport.user}).fetch()
+  models.Profile.where({id: commentInfo.profile_id}).fetch()
   .then(data => {
     commentInfo.username = data.attributes.display;
     return models.Comment.forge(commentInfo).save()
