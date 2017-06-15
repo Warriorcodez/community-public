@@ -5,7 +5,7 @@ import { MenuItem, RaisedButton, FlatButton, SelectField, TextField, Dialog, Gri
 import React, { Component } from 'react';
 import TimePicker from 'material-ui/TimePicker';
 import AWS from 'aws-sdk';
-var Spinner = require('react-spinkit');
+const Spinner = require('react-spinkit');
 
 var imageBucketName = 'hr-community-images';
 var bucketRegion = 'us-east-1';

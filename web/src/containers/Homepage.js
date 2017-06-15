@@ -26,7 +26,7 @@ import EventDetails from '../components/EventDetails';
 import Tools from '../components/Tools';
 import Gmap from '../components/GoogleMap';
 import React, { Component } from 'react';
-var Spinner = require('react-spinkit');
+const Spinner = require('react-spinkit');
 
 class Homepage extends Component {
 
