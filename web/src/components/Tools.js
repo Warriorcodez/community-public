@@ -34,6 +34,7 @@ class Tools extends Component {
       const lat = data.data[0].lat;
       const lng = data.data[0].lng;
       this.props.changeCenter({lat: Number(lat), lng: Number(lng)});
+      this.handleRequestClose();
     })
     .catch((err) => {
       console.log(err);
