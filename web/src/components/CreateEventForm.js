@@ -104,6 +104,11 @@ class CreateEventForm extends Component {
   addImage() {
     const context = this;
 
+    this.setState({
+      fileName: fileName,
+      isLoading: true
+    });
+
     const files = document.getElementById('imageupload').files;
     if (!files.length) {
       return alert('Please choose an image for your event.');
