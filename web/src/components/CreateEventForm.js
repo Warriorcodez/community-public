@@ -5,6 +5,7 @@ import { MenuItem, RaisedButton, FlatButton, SelectField, TextField, Dialog, Gri
 import React, { Component } from 'react';
 import TimePicker from 'material-ui/TimePicker';
 import AWS from 'aws-sdk';
+var Spinner = require('react-spinkit');
 
 var imageBucketName = 'hr-community-images';
 var bucketRegion = 'us-east-1';
@@ -41,10 +42,12 @@ class CreateEventForm extends Component {
       dateError: null,
       timeError: null,
       locationError: null,
+      descriptionError: null,
       categoryError: null,
       choseImage: false,
       hasImage: false,
-      fileName: 'No file chosen'
+      fileName: 'No file chosen',
+      isLoading: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -90,10 +93,12 @@ class CreateEventForm extends Component {
       dateError: null,
       timeError: null,
       locationError: null,
+      descriptionError: null,
       categoryError: null,
       choseImage: false,
       hasImage: false,
-      fileName: 'No file chosen'
+      fileName: 'No file chosen',
+      isLoading: false
     });
 
     document.getElementById('imageupload').value = '';
@@ -111,6 +116,11 @@ class CreateEventForm extends Component {
 
   addImage() {
     const context = this;
+
+    this.setState({
+      fileName: fileName,
+      isLoading: true
+    });
 
     const files = document.getElementById('imageupload').files;
     if (!files.length) {
@@ -134,7 +144,8 @@ class CreateEventForm extends Component {
         console.log('Image upload to S3 successful', data);
         context.setState({
           imageUrl: data.Location,
-          hasImage: true
+          hasImage: true,
+          isLoading: false
         });
       })
       .catch((err) => {
@@ -158,9 +169,15 @@ class CreateEventForm extends Component {
       if (!date) { throw errorCreator('dateError', 'Please select valid date'); }
       if (!time) { throw errorCreator('timeError', 'Please select valid time'); }
       if (!this.state.location) { throw errorCreator('locationError', 'Location cannnot be empty'); }
-      if (this.state.category === 'select...') { throw errorCreator('categoryError', 'Please select category'); }
+      if (!this.state.description) { throw errorCreator('descriptionError', 'Description cannnot be empty'); }
+      if (this.state.category === 'Select Category...') { throw errorCreator('categoryError', 'Please select category'); }
       let dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
       resolve(this.setState({ dateTime: dateTime }));
+    })
+    .then(() => {
+      this.setState({
+        isLoading: true
+      });
     })
     .then(() => {
       return axios.post('/api/createEvent', this.state)
@@ -175,6 +192,9 @@ class CreateEventForm extends Component {
       .then((data) => {
         this.props.addEvents(data.data);
         this.clearForm();
+        this.setState({
+          isLoading: false
+        });
         alert('New event created!');
       });
     })
@@ -209,8 +229,14 @@ class CreateEventForm extends Component {
         // repositionOnUpdate={true}
         // contentStyle={{height: '80%', maxHeight: 500}}
         open={this.props.createEventForm.creatingEvent}
-        onRequestClose={this.toggleCreateEvent}
+        onRequestClose={this.props.toggleCreateEvent}
         autoScrollBodyContent={true} >
+        {this.state.isLoading ?
+          (<div style={styles.loadingContainer}>
+            <div style={styles.loadingOverlay}></div>
+            <Spinner name='three-bounce' color="#C22B33" fadeIn="none" style={styles.loading}/>
+          </div>) : null
+        }
         <div style={{height: 500}}>
           <GridList cellHeight={140} >
             <div>
@@ -260,6 +286,7 @@ class CreateEventForm extends Component {
                 floatingLabelText="Description"
                 name="description"
                 inputStyle={styles.text}
+                errorText={this.state.descriptionError}
                 onChange={this.handleChange}
                 value={this.state.description}
                 style={{width: 620}}
@@ -275,21 +302,21 @@ class CreateEventForm extends Component {
             </div>
             <br />
           </GridList>
+        </div>
           <div>
             <br />
             <RaisedButton label="Choose an Image" labelPosition="before" containerElement="label" onTouchTap={this.chooseImage}>
-              <input type="file" id="imageupload" accept="image/*" style={styles.exampleImageInput} onChange={this.showAddImageButton}/>
+              <input type="file" id="imageupload" accept="image/*" style={styles.exampleImageInput} onChange={this.addImage}/>
             </RaisedButton>
+            <span style={{marginLeft: 15}}>{this.state.fileName}</span>
             {this.state.choseImage ?
               <RaisedButton label="Add Event Image" onTouchTap={this.addImage} style={{position: 'relative', left: 15}} /> : null}
               <br />
-              <div style={{margin: 15}}>{this.state.fileName}</div>
               {this.state.hasImage ?
                 <img id="eventimage" style={styles.image} src={this.state.imageUrl} /> : null
-              }
-            </div>
-        </div>
-        </Dialog>
+            }
+          </div>
+      </Dialog>
     );
   }
 }
@@ -337,6 +364,37 @@ const styles = {
     left: 0,
     width: '100%',
     opacity: 0,
+  },
+  loadingContainer: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0'
+  },
+  loadingOverlay: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0',
+    zIndex: '800',
+    backgroundColor: '#242424',
+    opacity: '0.4'
+  },
+  loading: {
+    width: '100',
+    position: 'absolute',
+    margin: 'auto',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0',
+    zIndex: '1000'
   }
 };
 
