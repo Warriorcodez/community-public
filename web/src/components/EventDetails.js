@@ -48,17 +48,19 @@ class EventDetails extends Component {
         label="Like"
         onTouchTap={this.handleLike}
         disabled={this.props.eventDetails.likeDisabled}
+        style={{color: '#31575B'}}
       />,
       <FlatButton
         label="Attend"
         onTouchTap={this.handleAttend}
         disabled={this.props.eventDetails.attendDisabled}
+        style={{color: '#31575B'}}
       />,
       <IconButton style={styles.homeIcon}>
         <Clear
           onTouchTap={this.handleClose}
-          color='#3EB1E0'
-          hoverColor='#3798db'
+          color='#31575B'
+          hoverColor='#C22B33'
         />
       </IconButton>
     ];
@@ -74,14 +76,13 @@ class EventDetails extends Component {
           modal={false}
           open={this.props.eventDetails.showEventDetails}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent='true'
           >
             <Tabs
-              // initialSelectedIndex={0}
-              inkBarStyle={{backgroundColor: '#3EB1E0', marginBottom: 20}}
+              inkBarStyle={{backgroundColor: '#C22B33', marginBottom: 20}}
               >
               <Tab
-                label={<span style={{ color: '#3EB1E0'}}>Event Details</span>}
+                label={<span style={{ color: '#31575B' }}>Event Details</span>}
                 style={styles.tab}
               >
                 <div style={styles.left}>
@@ -110,7 +111,7 @@ class EventDetails extends Component {
               </Tab>
               <Tab
                 style={styles.tab}
-                label={<span style={{ color: '#3EB1E0' }}>Event Comments</span>}
+                label={<span style={{ color: '#31575B' }}>Event Comments</span>}
               >
                 <Comments {...this.props}/>
               </Tab>
@@ -146,7 +147,9 @@ const styles = {
     borderRightStyle: 'solid',
     borderWidth: '1px',
     boxShadow: '0 1px 3px 0 rgba(3, 3, 3, 0.2)',
-    borderColor: '#ddd',
+    borderColor: 'white',
+    color: '#31575B',
+    borderBottom: 'red'
   }
 };
 

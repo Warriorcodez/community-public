@@ -92,12 +92,12 @@ class Homepage extends Component {
 }
 
 const styles = {
-  container: { // outside div
+  container: {
     position: 'absolute',
     height: 'calc(100% - 112px)',
     width: '50%',
   },
-  gridContainer: { // inside div
+  gridContainer: {
     height: '100%',
   },
   theme: {
@@ -106,7 +106,8 @@ const styles = {
     color: '#3EB1E0',
     borderRightStyle: 'solid',
     borderWidth: '1px',
-    boxShadow: '0 1px 3px 0 rgba(3, 3, 3, 0.2)'
+    boxShadow: '0 1px 3px 0 rgba(3, 3, 3, 0.2)',
+    color: '#31575B'
   },
   location: {
     fontFamily: 'Roboto'

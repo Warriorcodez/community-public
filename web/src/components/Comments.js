@@ -1,7 +1,7 @@
 import axios from 'axios';
+import moment from 'moment';
 import React, { Component } from 'react';
 import { RaisedButton, TextField } from 'material-ui';
-import moment from 'moment';
 
 class Comments extends Component {
   constructor(props) {
@@ -83,11 +83,13 @@ class Comments extends Component {
                 this.handleSubmit();
               }
             }}
+            underlineStyle={{color: '#31575B'}}
+            underlineFocusStyle={styles.underline}
           />
           {this.state.text === '' ?
           <RaisedButton
             label="Comment"
-            labelColor={'#5E35B1'}
+            labelColor={'#31575B'}
             onTouchTap={this.handleSubmit}
             style={styles.button}
             disabled='true'
@@ -95,7 +97,7 @@ class Comments extends Component {
           :
           <RaisedButton
             label="Comment"
-            labelColor={'#3EB1E0'}
+            labelColor={'#31575B'}
             onTouchTap={this.handleSubmit}
             style={styles.button}
           />
@@ -104,7 +106,7 @@ class Comments extends Component {
         <div>
           {this.state.comments.map(comment => (
           <div style={styles.container}>
-            <div style={styles.colLeft}>
+            <div style={styles.username}>
               <strong>{comment.username}</strong>
             </div>
             <div style={styles.time}>
@@ -125,8 +127,6 @@ const styles = {
   container: {
     display: 'inline-block',
     lineHeight: '16px',
-    borderColor: '#eee #ddd #bbb',
-    borderRadius: '5',
     borderStyle: 'solid',
     borderWidth: '1',
     boxShadow: '0 1 3 rgba(0, 0, 0, 0.15)',
@@ -135,33 +135,36 @@ const styles = {
     width: '673'
   },
   button: {
-    border: '1px solid #3EB1E0',
-    borderRadius: '10px',
+    border: '1px solid #31575B',
     marginLeft: '18px',
     float: 'right',
     marginRight: '10',
     marginTop: '10'
   },
   inputField: {
-    borderColor: '#5E35B1',
     width: '555',
     marginTop: '10',
     marginLeft: '7',
     marginBottom: '10'
   },
-  colLeft: {
-    float: 'left',
+  username: {
+    color: '#C22B33'
   },
   comment: {
     display: 'inline-block',
     width: '560',
     marginTop: '10',
     wordWrap: 'normal',
+    color: '#31575B'
   },
   time: {
     float: 'right',
     display: 'inline-block',
-  }
+    color: '#C22B33'
+  },
+  underline: {
+    borderColor: '#C22B33'
+  },
 };
 
 export default Comments;
