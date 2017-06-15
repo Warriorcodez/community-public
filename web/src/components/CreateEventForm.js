@@ -44,7 +44,6 @@ class CreateEventForm extends Component {
       locationError: null,
       descriptionError: null,
       categoryError: null,
-      choseImage: false,
       hasImage: false,
       fileName: 'No file chosen',
       isLoading: false
@@ -56,7 +55,6 @@ class CreateEventForm extends Component {
     this.handleDatePicker = this.handleDatePicker.bind(this);
     this.handleTimePicker = this.handleTimePicker.bind(this);
     this.clearForm = this.clearForm.bind(this);
-    this.showAddImageButton = this.showAddImageButton.bind(this);
     this.addImage = this.addImage.bind(this);
   }
 
@@ -95,7 +93,6 @@ class CreateEventForm extends Component {
       locationError: null,
       descriptionError: null,
       categoryError: null,
-      choseImage: false,
       hasImage: false,
       fileName: 'No file chosen',
       isLoading: false
@@ -104,23 +101,8 @@ class CreateEventForm extends Component {
     document.getElementById('imageupload').value = '';
   }
 
-  showAddImageButton() {
-    const files = document.getElementById('imageupload').files;
-    if (!files.length) { return alert('Please choose an image for your event.'); }
-    const fileName = files[0].name;
-    this.setState({
-      choseImage: true,
-      fileName: fileName
-    });
-  }
-
   addImage() {
     const context = this;
-
-    this.setState({
-      fileName: fileName,
-      isLoading: true
-    });
 
     const files = document.getElementById('imageupload').files;
     if (!files.length) {
@@ -130,6 +112,11 @@ class CreateEventForm extends Component {
     const file = files[0];
     console.log(file);
     const fileName = file.name;
+
+    this.setState({
+      fileName: fileName,
+      isLoading: true
+    });
 
     const params = {
       Key: fileName,
@@ -237,7 +224,7 @@ class CreateEventForm extends Component {
             <Spinner name='three-bounce' color="#C22B33" fadeIn="none" style={styles.loading}/>
           </div>) : null
         }
-        <div style={{height: 500}}>
+        <div style={{height: 450}}>
           <GridList cellHeight={140} >
             <div>
               <TextField
@@ -309,11 +296,9 @@ class CreateEventForm extends Component {
               <input type="file" id="imageupload" accept="image/*" style={styles.exampleImageInput} onChange={this.addImage}/>
             </RaisedButton>
             <span style={{marginLeft: 15}}>{this.state.fileName}</span>
-            {this.state.choseImage ?
-              <RaisedButton label="Add Event Image" onTouchTap={this.addImage} style={{position: 'relative', left: 15}} /> : null}
-              <br />
-              {this.state.hasImage ?
-                <img id="eventimage" style={styles.image} src={this.state.imageUrl} /> : null
+            <br />
+            {this.state.hasImage ?
+              <img id="eventimage" style={styles.image} src={this.state.imageUrl} /> : null
             }
           </div>
       </Dialog>
