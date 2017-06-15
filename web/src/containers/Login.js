@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeHeader, updateForm, changeCenter, setMarkers, addGeolocation, addEvents, setCurrentEvent, toggleEventDetails, setCurrentEventParticipants, disableButton } from '../actions';
+import { changeHeader, updateForm, changeCenter, setMarkers, addGeolocation, addEvents, setCurrentEvent, toggleEventDetails, setCurrentEventParticipants } from '../actions';
 import { Card, MenuItem, RaisedButton, SelectField, TextField } from 'material-ui';
 import React, { Component } from 'react';
 import beachVideo from '../../../public/assets/beach.mp4';
@@ -71,8 +71,7 @@ const matchDispatchToProps = (dispatch) => {
     addEvents: addEvents,
     toggleEventDetails: toggleEventDetails,
     setCurrentEvent: setCurrentEvent,
-    setCurrentEventParticipants: setCurrentEventParticipants,
-    disableButton: disableButton
+    setCurrentEventParticipants: setCurrentEventParticipants
   }, dispatch);
 };
 
