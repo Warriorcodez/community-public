@@ -127,9 +127,8 @@ const styles = {
   container: {
     display: 'inline-block',
     lineHeight: '16px',
-    borderStyle: 'solid',
+    borderBottom: '1px dotted #31575B',
     borderWidth: '1',
-    boxShadow: '0 1 3 rgba(0, 0, 0, 0.15)',
     margin: '5',
     padding: '20',
     width: '673'
@@ -160,7 +159,7 @@ const styles = {
   time: {
     float: 'right',
     display: 'inline-block',
-    color: '#C22B33'
+    color: '#31575B'
   },
   underline: {
     borderColor: '#C22B33'
