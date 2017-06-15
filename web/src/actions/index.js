@@ -78,3 +78,15 @@ export const incrementLikes = () => {
     type: 'INCREMENT_LIKES',
   };
 };
+
+export const toggleLoadingIndicator = () => {
+  return {
+    type: 'TOGGLE_LOADING_INDICATOR'
+  };
+};
+
+// export const hideLoadingIndicator = () => {
+//   return {
+//     type: 'HIDE_LOADING_INDICATOR'
+//   };
+// };

@@ -15,7 +15,8 @@ import {
   disableButton,
   incrementLikes,
   setCurrentEventLikes,
-  toggleCreateEvent
+  toggleCreateEvent,
+  toggleLoadingIndicator
 } from '../actions';
 import Header from '../components/Header';
 import CreateEventForm from '../components/CreateEventForm';
@@ -24,6 +25,7 @@ import EventDetails from '../components/EventDetails';
 import Tools from '../components/Tools';
 import Gmap from '../components/GoogleMap';
 import React, { Component } from 'react';
+var Spinner = require('react-spinkit');
 
 class Homepage extends Component {
 
@@ -37,6 +39,12 @@ class Homepage extends Component {
   render() {
     return (
       <div>
+        {this.props.isLoading ?
+          (<div style={styles.loadingContainer}>
+            <div style={styles.loadingOverlay}></div>
+            <Spinner name='three-bounce' color="#C22B33" fadeIn="none" style={styles.loading}/>
+          </div>) : null
+        }
         <Header header={this.props.header} />
         <GridList>
           <div>
@@ -66,6 +74,7 @@ class Homepage extends Component {
               markers={this.props.googleMap.markers}
               setCurrentEvent={this.props.setCurrentEvent}
               toggleEventDetails={this.props.toggleEventDetails}
+              toggleLoadingIndicator={this.props.toggleLoadingIndicator}
               style={styles.location}
             />
           </div>
@@ -111,6 +120,37 @@ const styles = {
   },
   location: {
     fontFamily: 'Roboto'
+  },
+  loadingContainer: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0'
+  },
+  loadingOverlay: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0',
+    zIndex: '800',
+    backgroundColor: '#242424',
+    opacity: '0.4'
+  },
+  loading: {
+    width: '100',
+    position: 'absolute',
+    margin: 'auto',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0',
+    zIndex: '1000'
   }
 };
 
@@ -121,6 +161,7 @@ const mapStateToProps = (state) => {
     googleMap: state.googleMap,
     events: state.events.allEvents,
     eventDetails: state.eventDetails,
+    isLoading: state.loadingIndicator.isLoading
   };
 };
 
@@ -137,7 +178,8 @@ const matchDispatchToProps = (dispatch) => {
     disableButton: disableButton,
     setCurrentEventLikes: setCurrentEventLikes,
     incrementLikes: incrementLikes,
-    toggleCreateEvent: toggleCreateEvent
+    toggleCreateEvent: toggleCreateEvent,
+    toggleLoadingIndicator: toggleLoadingIndicator
   }, dispatch);
 };
 

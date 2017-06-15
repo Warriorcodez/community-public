@@ -45,6 +45,8 @@ class Gmap extends Component {
 
   componentDidMount() {
     let context = this;
+    this.props.toggleLoadingIndicator();
+
     geolocation.getCurrentPosition((position) => {
       return new Promise((resolve, reject) => {
         resolve(this.setState({
@@ -67,6 +69,9 @@ class Gmap extends Component {
           defaultAnimation: 3,
         }]);
         context.props.changeCenter(this.state.center);
+      })
+      .then(() => {
+        this.props.toggleLoadingIndicator();
       })
       .catch((err) => {
         console.log(err);

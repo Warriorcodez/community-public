@@ -4,6 +4,7 @@ import createEventFormReducer from './createEventFormReducer';
 import eventsReducer from './eventsReducer';
 import googleMapReducer from './googleMapReducer';
 import eventDetailsReducer from './eventDetailsReducer';
+import loadingIndicatorReducer from './loadingIndicatorReducer';
 
 const allReducers = combineReducers({
   header: headerReducer,
@@ -11,6 +12,7 @@ const allReducers = combineReducers({
   googleMap: googleMapReducer,
   events: eventsReducer,
   eventDetails: eventDetailsReducer,
+  loadingIndicator: loadingIndicatorReducer
 });
 
 export default allReducers;
