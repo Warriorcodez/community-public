@@ -93,7 +93,7 @@ class Tools extends Component {
           <FlatButton
             label="Sort By"
             onTouchTap={this.toggleSort}
-            // style={{position: 'relative', left: '-45', bottom: '20'}}
+            style={styles.text}
           />
           <Popover
             open={this.state.showSortOptions}
@@ -112,6 +112,7 @@ class Tools extends Component {
           <FlatButton
             label="Filter Category"
             onTouchTap={this.toggleFilter}
+            style={styles.text}
           />
           <Popover
             open={this.state.showFilterOptions}
@@ -135,7 +136,11 @@ class Tools extends Component {
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarSeparator />
-          <RaisedButton label="Create Event" primary={true} onTouchTap={this.props.toggleCreateEvent} />
+          <RaisedButton
+            label="Create Event"
+            primary={true}
+            onTouchTap={this.props.toggleCreateEvent}
+          />
         </ToolbarGroup>
       </Toolbar>
     );
@@ -144,19 +149,23 @@ class Tools extends Component {
 }
 
 const styles = {
+  button: {
+    backgroundColor: 'white',
+    border: '1px solid #31575B',
+    color: '#31575B'
+  },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     height: '100%',
-    // backgroundColor: '#f6f5f0'
   },
   theme: {
     fontFamily: 'Roboto',
     fontSize: '20px'
   },
   gridList: {
-    height: 490,
+    height: '100%',
     padding: 15,
     overflowY: 'auto'
   },
@@ -171,8 +180,11 @@ const styles = {
     left: '120'
   },
   tools: {
-    height: 50,
-    backgroundColor: '#fff'
+    height: '100%',
+    backgroundColor: '#fff',
+  },
+  text: {
+    color: '#31575B'
   }
 };
 

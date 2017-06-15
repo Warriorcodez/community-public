@@ -47,7 +47,7 @@ class Header extends Component {
 
   render () {
     return (
-      <div>
+      <div style={styles.underline}>
         <AppBar
           title="Community"
           style={styles.theme}
@@ -95,8 +95,10 @@ const styles = {
     color: '#C22B33'
   },
   theme: {
-    backgroundColor: 'white'
-  }
+    backgroundColor: 'white',
+    borderBottom: '2px solid #31575B',
+
+  },
 };
 
 export default Header;

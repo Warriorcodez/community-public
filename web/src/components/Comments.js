@@ -89,17 +89,19 @@ class Comments extends Component {
           {this.state.text === '' ?
           <RaisedButton
             label="Comment"
-            labelColor={'#31575B'}
+            labelColor='white'
             onTouchTap={this.handleSubmit}
             style={styles.button}
-            disabled={true}
+            disabled='true'
+            backgroundColor='#31575B'
           />
           :
           <RaisedButton
             label="Comment"
-            labelColor={'#31575B'}
+            labelColor='white'
             onTouchTap={this.handleSubmit}
             style={styles.button}
+            backgroundColor='#31575B'
           />
           }
         </form>

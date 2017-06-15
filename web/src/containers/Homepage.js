@@ -49,7 +49,7 @@ class Homepage extends Component {
         <Header header={this.props.header} />
         <GridList>
           <div>
-            <Tools {...this.props} geolocation={this.props.googleMap.geolocation} />
+            <Tools {...this.props} geolocation={this.props.googleMap.geolocation} style={styles.container}/>
             <FindEvents
               events={this.props.events}
               googleMap={this.props.googleMap}
@@ -106,16 +106,15 @@ class Homepage extends Component {
 const styles = {
   container: {
     position: 'absolute',
-    height: 'calc(100% - 112px)',
+    height: 'calc(100% - 112px) !important',
     width: '50%',
   },
   gridContainer: {
-    height: '100%',
+    // height: '100%',
   },
   theme: {
     borderColor: '#ddd',
     fontFamily: 'Roboto',
-    color: '#3EB1E0',
     borderRightStyle: 'solid',
     borderWidth: '1px',
     boxShadow: '0 1px 3px 0 rgba(3, 3, 3, 0.2)',

@@ -86,8 +86,9 @@ export default class LocationInput extends Component {
           label="SEARCH"
           onTouchTap={this.handleLocationSearch}
           labelStyle={styles.buttonLabel}
-          labelColor={'#31575B'}
+          labelColor='white'
           style={styles.button}
+          backgroundColor='#31575B'
         />
       </Card>
     );
@@ -113,7 +114,7 @@ const styles = {
     fontSize: '16px',
     marginLeft: '14px',
     marginRight: '8px',
-    width: '690'
+    width: '700px'
   },
   underline: {
     borderColor: '#C22B33'
