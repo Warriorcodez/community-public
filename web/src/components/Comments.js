@@ -86,24 +86,14 @@ class Comments extends Component {
             underlineStyle={{color: '#31575B'}}
             underlineFocusStyle={styles.underline}
           />
-          {this.state.text === '' ?
           <RaisedButton
             label="Comment"
-            labelColor='white'
+            labelColor={'white'}
             onTouchTap={this.handleSubmit}
             style={styles.button}
-            disabled='true'
+            disabled={this.state.text === '' ? true : false}
             backgroundColor='#31575B'
           />
-          :
-          <RaisedButton
-            label="Comment"
-            labelColor='white'
-            onTouchTap={this.handleSubmit}
-            style={styles.button}
-            backgroundColor='#31575B'
-          />
-          }
         </form>
         <div>
           {this.state.comments.map(comment => (
