@@ -82,7 +82,6 @@ class Header extends Component {
                 href={'/login'}
               />
             </IconMenu>}
-          docked={true}
         />
       </div>
     );

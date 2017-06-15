@@ -92,7 +92,7 @@ class Comments extends Component {
             labelColor={'#31575B'}
             onTouchTap={this.handleSubmit}
             style={styles.button}
-            disabled='true'
+            disabled={true}
           />
           :
           <RaisedButton
