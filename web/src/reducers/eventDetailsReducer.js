@@ -2,8 +2,8 @@ const initialState = {
   showEventDetails: false,
   currentEvent: {},
   participants: [],
-  attendDisabled: false,
-  likeDisabled: false,
+  isAttendingEvent: false,
+  hasLikedEvent: false,
   likeCount: 0
 };
 
@@ -19,7 +19,7 @@ export default function(state = initialState, action) {
   case 'SET_CURRENT_EVENT_PARTICIPANTS':
     return Object.assign({}, state, { participants: action.payload });
 
-  case 'DISABLE_BUTTON':
+  case 'UPDATE_BUTTON':
     return Object.assign({}, state, action.payload);
 
   case 'SET_CURRENT_EVENT_LIKES':
@@ -27,6 +27,9 @@ export default function(state = initialState, action) {
 
   case 'INCREMENT_LIKES':
     return Object.assign({}, state, { likeCount: state.likeCount + 1 });
+
+  case 'DECREMENT_LIKES':
+    return Object.assign({}, state, { likeCount: state.likeCount - 1 });
 
   default:
     return state;

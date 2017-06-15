@@ -22,9 +22,9 @@ class FindEvents extends Component {
 
     axios.post('/api/connectEventToProfile', { eventId: this.props.events[i].id })
     .then(res => {
-      this.props.disableButton({
-        attendDisabled: !!res.data.is_attending,
-        likeDisabled: !!res.data.liked
+      this.props.updateButton({
+        isAttendingEvent: !!res.data.is_attending,
+        hasLikedEvent: !!res.data.liked
       });
     })
     .catch(err => { console.log(err); });

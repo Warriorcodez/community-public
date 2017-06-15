@@ -16,6 +16,15 @@ class ProfileGrid extends Component {
     this.props.setCurrentEvent(this.props.events[i]);
     this.props.toggleEventDetails();
 
+    axios.post('/api/connectEventToProfile', { eventId: this.props.events[i].id })
+    .then(res => {
+      this.props.updateButton({
+        isAttendingEvent: !!res.data.is_attending,
+        hasLikedEvent: !!res.data.liked
+      });
+    })
+    .catch(err => { console.log(err); });
+
     axios.post('/api/retrieveParticipants', { eventId: this.props.events[i].id })
     .then(res => {
       // let participants = res.data.filter(entry => entry.is_attending).map(entry => {
@@ -26,13 +35,8 @@ class ProfileGrid extends Component {
     })
     .catch(err => { console.log(err); });
 
-    axios.post('/api/connectEventToProfile', { eventId: this.props.events[i].id })
-    .then(res => {
-      this.props.disableButton({
-        attendDisabled: !!res.data.is_attending,
-        likeDisabled: !!res.data.liked
-      });
-    })
+    axios.post('/api/countLikes', { eventId: this.props.events[i].id })
+    .then(res => { this.props.setCurrentEventLikes(res.data.like_count); })
     .catch(err => { console.log(err); });
   }
 
@@ -87,6 +91,7 @@ const styles = {
     margin: 10,
     width: 280,
     height: 180,
+    cursor: 'pointer'
   },
 };
 

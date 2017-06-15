@@ -2,7 +2,16 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Card, Avatar } from 'material-ui';
-import { addEvents, setCurrentEvent, toggleEventDetails, setCurrentEventParticipants, disableButton } from '../actions';
+import {
+  addEvents,
+  setCurrentEvent,
+  toggleEventDetails,
+  setCurrentEventParticipants,
+  setCurrentEventLikes,
+  updateButton,
+  incrementLikes,
+  decrementLikes
+  } from '../actions';
 import Header from '../components/Header';
 import ProfileGrid from '../components/ProfileGrid';
 import EventDetails from '../components/EventDetails';
@@ -45,27 +54,32 @@ class Profile extends Component {
           <div style={styles.welcome} >Welcome, {JSON.parse(window.user).first}</div>
           <Avatar src={JSON.parse(window.user).profile_picture} size={100} />
           <h3 style={styles.heading} >Upcoming Events</h3>
-          <ProfileGrid events={this.state.upcomingEvents}
+          <ProfileGrid
+            events={this.state.upcomingEvents}
             setCurrentEvent={this.props.setCurrentEvent}
             eventDetails={this.props.eventDetails}
             toggleEventDetails={this.props.toggleEventDetails}
-            disableButton={this.props.disableButton}
+            updateButton={this.props.updateButton}
             setCurrentEventParticipants={this.props.setCurrentEventParticipants}
           />
           <br />
           <h3 style={styles.heading} >Past Events</h3>
-          <ProfileGrid events={this.state.pastEvents}
+          <ProfileGrid
+            events={this.state.pastEvents}
             setCurrentEvent={this.props.setCurrentEvent}
             eventDetails={this.props.eventDetails}
             toggleEventDetails={this.props.toggleEventDetails}
-            disableButton={this.props.disableButton}
+            updateButton={this.props.updateButton}
             setCurrentEventParticipants={this.props.setCurrentEventParticipants}
+            setCurrentEventLikes={this.props.setCurrentEventLikes}
           />
         </Card>
         <EventDetails
           toggleEventDetails={this.props.toggleEventDetails}
           eventDetails={this.props.eventDetails}
-          disableButton={this.props.disableButton}
+          updateButton={this.props.updateButton}
+          incrementLikes={this.props.incrementLikes}
+          decrementLikes={this.props.decrementLikes}
           events={this.props.events}
         />
       </div>
@@ -106,7 +120,10 @@ const matchDispatchToProps = (dispatch) => {
     toggleEventDetails: toggleEventDetails,
     setCurrentEvent: setCurrentEvent,
     setCurrentEventParticipants: setCurrentEventParticipants,
-    disableButton: disableButton
+    setCurrentEventLikes: setCurrentEventLikes,
+    updateButton: updateButton,
+    incrementLikes: incrementLikes,
+    decrementLikes: decrementLikes
   }, dispatch);
 };
 

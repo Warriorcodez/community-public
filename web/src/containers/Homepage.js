@@ -12,9 +12,10 @@ import {
   setCurrentEvent,
   toggleEventDetails,
   setCurrentEventParticipants,
-  disableButton,
-  incrementLikes,
   setCurrentEventLikes,
+  updateButton,
+  incrementLikes,
+  decrementLikes,
   toggleCreateEvent,
   toggleLoadingIndicator
 } from '../actions';
@@ -55,7 +56,7 @@ class Homepage extends Component {
               setCurrentEvent={this.props.setCurrentEvent}
               toggleEventDetails={this.props.toggleEventDetails}
               setCurrentEventParticipants={this.props.setCurrentEventParticipants}
-              disableButton={this.props.disableButton}
+              updateButton={this.props.updateButton}
               changeCenter={this.props.changeCenter}
               addEvents={this.props.addEvents}
               setCurrentEventLikes={this.props.setCurrentEventLikes}
@@ -82,8 +83,9 @@ class Homepage extends Component {
         <EventDetails
           toggleEventDetails={this.props.toggleEventDetails}
           eventDetails={this.props.eventDetails}
-          disableButton={this.props.disableButton}
+          updateButton={this.props.updateButton}
           incrementLikes={this.props.incrementLikes}
+          decrementLikes={this.props.decrementLikes}
           events={this.props.events}
         />
         <CreateEventForm
@@ -175,9 +177,10 @@ const matchDispatchToProps = (dispatch) => {
     toggleEventDetails: toggleEventDetails,
     setCurrentEvent: setCurrentEvent,
     setCurrentEventParticipants: setCurrentEventParticipants,
-    disableButton: disableButton,
     setCurrentEventLikes: setCurrentEventLikes,
+    updateButton: updateButton,
     incrementLikes: incrementLikes,
+    decrementLikes: decrementLikes,
     toggleCreateEvent: toggleCreateEvent,
     toggleLoadingIndicator: toggleLoadingIndicator
   }, dispatch);

@@ -59,9 +59,9 @@ export const setCurrentEventParticipants = (data) => {
   };
 };
 
-export const disableButton = (data) => {
+export const updateButton = (data) => {
   return {
-    type: 'DISABLE_BUTTON',
+    type: 'UPDATE_BUTTON',
     payload: data
   };
 };
@@ -76,6 +76,12 @@ export const setCurrentEventLikes = (count) => {
 export const incrementLikes = () => {
   return {
     type: 'INCREMENT_LIKES',
+  };
+};
+
+export const decrementLikes = () => {
+  return {
+    type: 'DECREMENT_LIKES',
   };
 };
 

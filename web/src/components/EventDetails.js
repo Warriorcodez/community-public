@@ -10,9 +10,12 @@ import moment from 'moment';
 class EventDetails extends Component {
   constructor(props) {
     super(props);
+
     this.handleLike = this.handleLike.bind(this);
+    this.handleUnlike = this.handleUnlike.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleAttend = this.handleAttend.bind(this);
+    this.handleUnattend = this.handleUnattend.bind(this);
   }
 
   handleClose() {
@@ -24,7 +27,17 @@ class EventDetails extends Component {
     axios.post('/api/attendEvent', { eventId: currentEvent.id })
     .then(res => {
       console.log(res.data);
-      this.props.disableButton({ attendDisabled: true });
+      this.props.updateButton({ isAttendingEvent: true });
+    })
+    .catch(err => { console.log(err); });
+  }
+
+  handleUnattend() {
+    let currentEvent = this.props.eventDetails.currentEvent;
+    axios.post('/api/unattendEvent', { eventId: currentEvent.id })
+    .then(res => {
+      console.log(res.data);
+      this.props.updateButton({ isAttendingEvent: false });
     })
     .catch(err => { console.log(err); });
   }
@@ -34,8 +47,19 @@ class EventDetails extends Component {
     axios.post('/api/likeEvent', { eventId: currentEvent.id })
     .then(res => {
       console.log(res.data);
-      this.props.disableButton({ likeDisabled: true });
+      this.props.updateButton({ hasLikedEvent: true });
       this.props.incrementLikes();
+    })
+    .catch(err => { console.log(err); });
+  }
+
+  handleUnlike() {
+    let currentEvent = this.props.eventDetails.currentEvent;
+    axios.post('/api/unlikeEvent', { eventId: currentEvent.id })
+    .then(res => {
+      console.log(res.data);
+      this.props.updateButton({ hasLikedEvent: false });
+      this.props.decrementLikes();
     })
     .catch(err => { console.log(err); });
   }
@@ -45,15 +69,13 @@ class EventDetails extends Component {
 
     const actions = [
       <FlatButton
-        label="Like"
-        onTouchTap={this.handleLike}
-        disabled={this.props.eventDetails.likeDisabled}
+        label={this.props.eventDetails.hasLikedEvent ? 'Unlike' : 'Like'}
+        onTouchTap={this.props.eventDetails.hasLikedEvent ? this.handleUnlike : this.handleLike}
         style={{color: '#31575B'}}
       />,
       <FlatButton
-        label="Attend"
-        onTouchTap={this.handleAttend}
-        disabled={this.props.eventDetails.attendDisabled}
+        label={this.props.eventDetails.isAttendingEvent ? 'Unattend' : 'Attend'}
+        onTouchTap={this.props.eventDetails.isAttendingEvent ? this.handleUnattend : this.handleAttend}
         style={{color: '#31575B'}}
       />,
       <IconButton style={styles.homeIcon}>
