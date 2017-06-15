@@ -69,23 +69,24 @@ export default class LocationInput extends Component {
     });
     const filter = () => true;
     return (
-      <Card >
+      <Card style={{marginTop: 2}}>
         <AutoComplete dataSource={dataSource}
           autoFocus
           filter={filter}
           name="address"
           onUpdateInput={this.handleChange}
           hintText='Search Location'
-          hintStyle={{color: '#3EB1E0'}}
+          hintStyle={{color: '#31575B', fontStyle: 'italic'}}
           textFieldStyle={styles.location}
-          underlineStyle={styles.underline}
+          underlineStyle={{color: '#31575B'}}
+          underlineFocusStyle={styles.underline}
           value={this.state.location}
         />
         <RaisedButton
           label="SEARCH"
           onTouchTap={this.handleLocationSearch}
           labelStyle={styles.buttonLabel}
-          labelColor={'#3EB1E0'}
+          labelColor={'#31575B'}
           style={styles.button}
         />
       </Card>
@@ -95,8 +96,7 @@ export default class LocationInput extends Component {
 
 const styles = {
   button: {
-    border: '1px solid #3EB1E0',
-    borderRadius: '10px',
+    border: '1px solid #31575B',
     marginLeft: '18px',
     float: 'right',
     marginRight: '10',
@@ -108,13 +108,14 @@ const styles = {
     textTransform: 'capitalize',
   },
   location: {
-    borderColor: '#3EB1E0',
+    borderColor: '#31575B',
     fontFamily: 'Roboto',
     fontSize: '16px',
-    marginLeft: '8px',
+    marginLeft: '14px',
     marginRight: '8px',
-    width: '530'
+    width: '690'
   },
   underline: {
+    borderColor: '#C22B33'
   },
 };

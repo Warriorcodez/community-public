@@ -131,7 +131,7 @@ class Gmap extends Component {
           event_name={marker.event_name}
           position={{lat: Number(marker.lat), lng: Number(marker.lng)}}
           onClick={() => props.onMarkerClick(marker, index)}
-          icon={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}
+          icon={'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|C22B33'}
           key={'marker_' + index}
           >
           </Marker>
@@ -141,7 +141,7 @@ class Gmap extends Component {
             defaultAnimation={3}
             position={{lat: this.state.center.lat, lng: this.state.center.lng}}
             key={'geo_' + index}
-            icon={'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}
+            icon={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}
           >
           </Marker>
         ))}
@@ -169,7 +169,7 @@ class Gmap extends Component {
           <Paper style={styles.circle} zDepth={2} circle={true} >
             <LocationSearching
               onTouchTap={this.recenter}
-              color={'#3EB1E0'}
+              color={'#31575B'}
             />
           </Paper>
         </IconButton>
@@ -177,7 +177,7 @@ class Gmap extends Component {
           <Paper style={styles.circle} zDepth={2} circle={true} >
             <Autorenew
               onTouchTap={this.onRefresh}
-              color={'#3EB1E0'}
+              color={'#31575B'}
             />
           </Paper>
         </IconButton>

@@ -97,10 +97,9 @@ const styles = {
   title: {
     fontFamily: 'Vibur',
     fontSize: '34px',
-    color: '#3798db'
+    color: '#C22B33'
   },
   theme: {
-    // backgroundColor: '#f6f5f0',
     backgroundColor: 'white'
   }
 };
