@@ -80,6 +80,7 @@ class Profile extends Component {
           updateButton={this.props.updateButton}
           incrementLikes={this.props.incrementLikes}
           decrementLikes={this.props.decrementLikes}
+          setCurrentEventParticipants={this.props.setCurrentEventParticipants}
           events={this.props.events}
         />
       </div>

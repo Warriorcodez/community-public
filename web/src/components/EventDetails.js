@@ -29,6 +29,11 @@ class EventDetails extends Component {
       console.log(res.data);
       this.props.updateButton({ isAttendingEvent: true });
     })
+    .then(() => {
+      axios.post('/api/retrieveParticipants', { eventId: currentEvent.id })
+        .then(res => { this.props.setCurrentEventParticipants(res.data); })
+        .catch(err => { console.log(err); });
+    })
     .catch(err => { console.log(err); });
   }
 
@@ -38,6 +43,11 @@ class EventDetails extends Component {
     .then(res => {
       console.log(res.data);
       this.props.updateButton({ isAttendingEvent: false });
+    })
+    .then(() => {
+      axios.post('/api/retrieveParticipants', { eventId: currentEvent.id })
+        .then(res => { this.props.setCurrentEventParticipants(res.data); })
+        .catch(err => { console.log(err); });
     })
     .catch(err => { console.log(err); });
   }
