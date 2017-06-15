@@ -201,9 +201,22 @@ router.route('/attendEvent')
     .catch(err => { res.send(err); });
   });
 
-router.route('/likeEvent')
+router.route('/unattendEvent')
   .post((req, res) => {
     return db.knex('events_profiles')
+    .where({
+      profile_id: req.body.userId || req.session.passport.user,
+      event_id: req.body.eventId
+    })
+    .update({ is_attending: false })
+    .then(() => { res.send('unattended event'); })
+    .catch(err => { res.send(err); });
+  });
+
+router.route('/likeEvent')
+  .post((req, res) => {
+
+    db.knex('events_profiles')
     .where({
       profile_id: req.body.userId || req.session.passport.user,
       event_id: req.body.eventId
@@ -211,9 +224,29 @@ router.route('/likeEvent')
     .update({ liked: true })
     .then(() => {
       db.knex('events')
-      .where({ id: req.body.eventId })
-      .increment('like_count', 1);
+      .where('id', '=', req.body.eventId)
+      .increment('like_count', 1)
+      .catch((err) => { res.send(err); });
       res.send('liked event');
+    })
+    .catch(err => { res.send(err); });
+  });
+
+router.route('/unlikeEvent')
+  .post((req, res) => {
+
+    db.knex('events_profiles')
+    .where({
+      profile_id: req.body.userId || req.session.passport.user,
+      event_id: req.body.eventId
+    })
+    .update({ liked: false })
+    .then(() => {
+      db.knex('events')
+      .where('id', '=', req.body.eventId)
+      .decrement('like_count', 1)
+      .catch((err) => { res.send(err); });
+      res.send('unliked event');
     })
     .catch(err => { res.send(err); });
   });
