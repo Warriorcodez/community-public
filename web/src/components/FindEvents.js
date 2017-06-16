@@ -44,7 +44,7 @@ class FindEvents extends Component {
         style={styles.containerChildren}
         containerStyle={styles.container}
         >
-        <GridList cellHeight={200} cols={2} style={styles.gridList} padding={15}>
+        <GridList cellHeight={200} cols={2} style={styles.gridList} >
           {this.props.events.map((tile, i) => (
             <GridTileComponent
               key={i}
@@ -68,7 +68,7 @@ const styles = {
   containerChildren: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
   },
   container: {
     height: window.innerHeight * .86,
@@ -79,9 +79,10 @@ const styles = {
   },
   gridList: {
     overflowY: 'auto',
-    paddingTop: window.innerHeight * .036,
-    paddingLeft: window.innerWidth * .04,
-    paddingRight: window.innerWidth * .04,
+    marginTop: window.innerHeight * .03,
+    paddingLeft: window.innerWidth * .02,
+    paddingRight: window.innerWidth * .03,
+    height: window.innerHeight * .82
   },
   dropdown: {
     width: 250,
