@@ -105,7 +105,7 @@ class Tools extends Component {
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
             >
-            <Menu>
+            <Menu style={{width: 100}}>
               <MenuItem primaryText="Location" onTouchTap={this.handleGeolocationSort}/>
               <MenuItem primaryText="Popularity" onTouchTap={this.handlePopularitySort}/>
             </Menu>
@@ -127,6 +127,7 @@ class Tools extends Component {
             >
             <Menu
               value={this.state.category}
+              style={{width: 165}}
               onChange={this.handleChange} >
               <MenuItem value="All" primaryText="All" />
               <MenuItem value="Food" primaryText="Food" />
