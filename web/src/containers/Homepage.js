@@ -75,6 +75,9 @@ class Homepage extends Component {
               markers={this.props.googleMap.markers}
               setCurrentEvent={this.props.setCurrentEvent}
               toggleEventDetails={this.props.toggleEventDetails}
+              setCurrentEventLikes={this.props.setCurrentEventLikes}
+              setCurrentEventParticipants={this.props.setCurrentEventParticipants}
+              updateButton={this.props.updateButton}
               toggleLoadingIndicator={this.props.toggleLoadingIndicator}
               style={styles.location}
             />

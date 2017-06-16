@@ -83,14 +83,33 @@ class Gmap extends Component {
     this._mapComponent = map;
   }
 
-  handleMarkerClick(targetMarker, index) {
-    this.props.setCurrentEvent(this.props.events[index]);
-    this.props.toggleEventDetails();
-    // this._mapComponent.panTo({lat: Number(targetMarker.lat), lng: Number(targetMarker.lng)});
+  handleMarkerClick(targetMarker, i) {
     this.props.changeCenter({
       lat: Number(targetMarker.lat),
       lng: Number(targetMarker.lng)
     });
+
+    this.props.toggleEventDetails();
+    this.props.setCurrentEventParticipants([]);
+    this.props.setCurrentEvent(this.props.events[i]);
+    this.props.setCurrentEventLikes(0);
+
+    axios.post('/api/connectEventToProfile', { eventId: this.props.events[i].id })
+    .then(res => {
+      this.props.updateButton({
+        isAttendingEvent: !!res.data.is_attending,
+        hasLikedEvent: !!res.data.liked
+      });
+    })
+    .catch(err => { console.log(err); });
+
+    axios.post('/api/retrieveParticipants', { eventId: this.props.events[i].id })
+    .then(res => { this.props.setCurrentEventParticipants(res.data); })
+    .catch(err => { console.log(err); });
+
+    axios.post('/api/countLikes', { eventId: this.props.events[i].id })
+    .then(res => { this.props.setCurrentEventLikes(res.data.like_count); })
+    .catch(err => { console.log(err); });
   }
 
   handleReverseGeoCode(latlng) {
@@ -103,12 +122,6 @@ class Gmap extends Component {
     });
   }
 
-  // onMapClick () {
-  //   this._mapComponent.panTo({lat: 37.821593, lng: -121.999961});
-  // }
-
-  //25.0330 lat
-  //121.5654 lng
 
   onRefresh() {
     axios.get('/api/retrieveEvents')

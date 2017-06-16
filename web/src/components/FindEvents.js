@@ -18,6 +18,7 @@ class FindEvents extends Component {
 
     this.props.setCurrentEventParticipants([]);
     this.props.setCurrentEvent(this.props.events[i]);
+    this.props.setCurrentEventLikes(0);
     this.props.toggleEventDetails();
 
     axios.post('/api/connectEventToProfile', { eventId: this.props.events[i].id })
